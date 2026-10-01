@@ -2,7 +2,7 @@
 form's filename, matching the lab's existing manual convention. Derived
 from real before/after examples pulled (with explicit one-time
 permission) from S:\\Testing_Requests and S:\\Reports for four real
-customers (Customer 131, Fxfilm TX, Folder 092, Folder 031), not
+customers (Customer ca83b, Fxfilm TX, Folder 6c581, Folder 3978d), not
 guessed -- see the real fixtures in
 tests/test_report_filename.py.
 
@@ -48,10 +48,10 @@ def report_filename(tr_filename: str) -> str:
 
     >>> report_filename("090426 Fxfilm UPX TX 4972.xlsx")
     '090426 Fxfilm UPX TX 4972 Results.xlsx'
-    >>> report_filename("091526-Customer 131 Cust020 Choline Hydroxide MDEA ICPMS STD.xlsx")
-    '091526-Customer 131 Cust020 Choline Hydroxide MDEA Results.xlsx'
-    >>> report_filename("091626-Folder 092 FX RI MIBC DLV00133475 Same Day RUSH.xlsx")
-    '091626-Folder 092 FX RI MIBC DLV00133475 Results Same Day RUSH.xlsx'
+    >>> report_filename("091526-Customer ca83b Custb3b14 Choline Hydroxide MDEA ICPMS STD.xlsx")
+    '091526-Customer ca83b Custb3b14 Choline Hydroxide MDEA Results.xlsx'
+    >>> report_filename("091626-Folder 6c581 FX RI MIBC DLV00133475 Same Day RUSH.xlsx")
+    '091626-Folder 6c581 FX RI MIBC DLV00133475 Results Same Day RUSH.xlsx'
     """
     stem = tr_filename
     for ext in _KNOWN_EXTENSIONS:

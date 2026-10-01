@@ -21,7 +21,7 @@ class _FakeElementService:
 
 
 def test_header_footer_and_analyte_rows_all_use_the_real_sample_count_width():
-    """Confirmed real gap (2026-09-25, direct user correction, Cust082):
+    """Confirmed real gap (2026-09-25, direct user correction, Custc4ea4):
     every row used to border/fill out to the fixed 19-column worst case
     regardless of how many real sample columns THIS report actually has,
     leaving a long run of genuinely empty-but-styled "extra" columns for
@@ -43,7 +43,7 @@ def test_wider_submission_gets_a_wider_real_max_columns():
 
 
 def test_column_header_marks_the_gap_column_before_mdl_as_blank():
-    """Confirmed real gap (2026-09-25, direct user correction, Cust082): the
+    """Confirmed real gap (2026-09-25, direct user correction, Custc4ea4): the
     single deliberate spacer column between the last real sample column
     and the bare MDL/QL header was still getting the same fill/border as
     every other header cell."""

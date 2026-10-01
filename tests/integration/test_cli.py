@@ -39,13 +39,13 @@ def _seed(db_url: str) -> None:
             s.add(_ElementRow(element_symbol=symbol, element_name=symbol))
 
         customer = _CustomerRow(
-            customer_name="Customer 130", street_address="123 Main St",
+            customer_name="Customer ea6f9", street_address="123 Main St",
             city="Springfield", state="IL", postal_code="62701", country="USA",
         )
         s.add(customer)
         s.flush()
         s.add(_FormCustomerRow(
-            form_customer="Customer 130", form_address="123 Main St", form_address_2="Springfield, IL",
+            form_customer="Customer ea6f9", form_address="123 Main St", form_address_2="Springfield, IL",
             customer_id=customer.id,
         ))
 
@@ -61,7 +61,7 @@ def _seed(db_url: str) -> None:
         s.commit()
 
 
-def _make_input_workbook(path: Path, customer_name: str = "Customer 130") -> None:
+def _make_input_workbook(path: Path, customer_name: str = "Customer ea6f9") -> None:
     wb = openpyxl.load_workbook(_FORM_PATH)
     ws = wb.active
     ws["C10"] = customer_name
@@ -103,7 +103,7 @@ def test_cli_success_writes_output_and_exits_zero(tmp_path, capsys):
     ws = wb["Test Acid Matrix"]
     assert ws.oddHeader.center.text == "Test Acid Matrix"
     assert ws.oddHeader.left.text == "\n".join(LAB_HEADER_LINES)
-    assert "Customer 130" in ws.oddHeader.right.text
+    assert "Customer ea6f9" in ws.oddHeader.right.text
     assert ws["A1"].value == "Test Acid Matrix"
     # Confirmed real: a 5-row header preamble (title/blank/Notes:/2 note
     # lines) precedes the first section's own sample-ID echo row.
@@ -113,7 +113,7 @@ def test_cli_success_writes_output_and_exits_zero(tmp_path, capsys):
     # The standard "mmddyy-Chemical-Customer-SampleID" sample-ID string,
     # stamped into the section's own "Sample Identification:" row (row 6,
     # right after the preamble).
-    assert ws["D6"].value == "030526-Test Acid Matrix-Customer 130-S-001"
+    assert ws["D6"].value == "030526-Test Acid Matrix-Customer ea6f9-S-001"
 
 
 @pytest.mark.skipif(not _FORM_PATH.exists(), reason="real Chemical intake form not available in this environment")
@@ -165,7 +165,7 @@ def test_run_populates_the_optional_info_dict_with_the_report_gates(tmp_path):
     result_path = run(input_path, output_path, services=services, info=info)
 
     assert result_path == output_path
-    assert info["customer_name"] == "Customer 130"
+    assert info["customer_name"] == "Customer ea6f9"
     assert info["request_type"] == "CHEMICAL"
     assert info["sample_count"] == 1
     assert info["sheet_count"] == 1
@@ -196,7 +196,7 @@ def test_cli_success_writes_a_report_generation_log_row(tmp_path, capsys):
     with Session(create_engine(db_url)) as s:
         rows = s.query(_ReportGenerationLogRow).all()
     assert len(rows) == 1
-    assert rows[0].customer_name == "Customer 130"
+    assert rows[0].customer_name == "Customer ea6f9"
     assert rows[0].technician_initials == "JT"
     assert rows[0].input_path == str(input_path)
     assert rows[0].output_path == str(output_path)
@@ -263,7 +263,7 @@ def test_cli_blank_chemical_matrix_exits_one_with_a_blank_specific_message(tmp_p
     input_path = tmp_path / "input.xlsx"
     wb = openpyxl.load_workbook(_FORM_PATH)
     ws = wb.active
-    ws["C10"] = "Customer 130"
+    ws["C10"] = "Customer ea6f9"
     ws["C11"] = "123 Main St"
     ws["C12"] = "Springfield, IL"
     ws["P5"] = date(2026, 3, 5)

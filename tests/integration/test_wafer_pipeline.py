@@ -36,7 +36,7 @@ _FORM_PATH = (
 )
 
 _STUB_CUSTOMER = Customer(
-    id=1, name="Customer 130", street_address="123 Main St",
+    id=1, name="Customer ea6f9", street_address="123 Main St",
     city="Springfield", state="IL", postal_code="62701", country="USA",
 )
 _STUB_CHEMICAL = Chemical(id=7, name="N/A", metals_prep="N/A", silicon_prep="N/A", ions_prep="N/A")
@@ -70,7 +70,7 @@ def test_real_wafer_form_flows_through_parse_and_group_and_transform(session):
     wb = openpyxl.load_workbook(_FORM_PATH)
     ws = wb.active
 
-    ws["C10"] = "Customer 130"
+    ws["C10"] = "Customer ea6f9"
     ws["C11"] = "123 Main St"
     ws["C12"] = "Springfield, IL"
     ws["L5"] = date(2026, 3, 5)  # Date received (Wafer column map)
@@ -111,9 +111,9 @@ def test_real_wafer_form_flows_through_parse_and_group_and_transform(session):
     assert result.apply_atoms_superscript_quirk is True
 
     sample_id_row = result.section.rows[5]
-    assert sample_id_row.get_value(4) == f"{submission.date_received.strftime('%m%d%y')}-150mm Wafers-Customer 130-Process Blank"
-    assert sample_id_row.get_value(5) == f"{submission.date_received.strftime('%m%d%y')}-150mm Wafers-Customer 130-Slot-1"
-    assert sample_id_row.get_value(6) == f"{submission.date_received.strftime('%m%d%y')}-150mm Wafers-Customer 130-Slot-2"
+    assert sample_id_row.get_value(4) == f"{submission.date_received.strftime('%m%d%y')}-150mm Wafers-Customer ea6f9-Process Blank"
+    assert sample_id_row.get_value(5) == f"{submission.date_received.strftime('%m%d%y')}-150mm Wafers-Customer ea6f9-Slot-1"
+    assert sample_id_row.get_value(6) == f"{submission.date_received.strftime('%m%d%y')}-150mm Wafers-Customer ea6f9-Slot-2"
 
     data_rows = [r for r in result.section.rows if r.style_name == "DataLabel"]
     assert len(data_rows) == 36

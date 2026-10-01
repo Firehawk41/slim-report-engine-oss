@@ -67,9 +67,9 @@ GOLDEN_PAIRS = [
         unresolvable_customer_name="EXAMPLE LAB",
     ),
     GoldenPair(
-        name="Cust002_ventures_mea_ked_set1",
-        input_path=Path(r"S:\Testing_Requests\Folder 031\091826 Folder 031 MEA ICPMS IC Same Day RUSH Set 1.xlsx"),
-        legacy_output_path=Path(r"S:\Reports\Folder 031\091826 Folder 031 MEA Results Same Day RUSH Set 1 Completed.xlsx"),
+        name="Cust41a14_ventures_mea_ked_set1",
+        input_path=Path(r"S:\Testing_Requests\Folder 3978d\091826 Folder 3978d MEA ICPMS IC Same Day RUSH Set 1.xlsx"),
+        legacy_output_path=Path(r"S:\Reports\Folder 3978d\091826 Folder 3978d MEA Results Same Day RUSH Set 1 Completed.xlsx"),
     ),
     GoldenPair(
         name="dummy_tr_wafers",
@@ -113,12 +113,12 @@ GOLDEN_PAIRS = [
         # legacy example didn't -- direct user "final decision").
     ),
     GoldenPair(
-        name="Cust025_dmso_real",
-        input_path=_EVIDENCE_ROOT / "091726-Customer 054 DMSO Real TR.xlsx",
-        legacy_output_path=_EVIDENCE_ROOT / "091726-Customer 054 DMSO Real TR report.xlsx",
-        # Real customer/chemical (Customer 054, DMSO -- Ti KED).
-        # "Customer 034" (the real form text) had no form_key
-        # mapping to the existing "Customer 054" customer (id 6) --
+        name="Custb01e9_dmso_real",
+        input_path=_EVIDENCE_ROOT / "091726-Customer b9386 DMSO Real TR.xlsx",
+        legacy_output_path=_EVIDENCE_ROOT / "091726-Customer b9386 DMSO Real TR report.xlsx",
+        # Real customer/chemical (Customer b9386, DMSO -- Ti KED).
+        # "Customer 1bb06" (the real form text) had no form_key
+        # mapping to the existing "Customer b9386" customer (id 6) --
         # fixed 2026-09-29 via CustomerService.add_form_key(), same
         # self-heal-onto-an-existing-customer pattern as the RAW
         # MATERIALS incident, not a new duplicate customer.
@@ -128,7 +128,7 @@ GOLDEN_PAIRS = [
         input_path=_EVIDENCE_ROOT / "Dummy TR - KED coverage (TEA NiGe, DMSO Ti, KOH).xlsx",
         legacy_output_path=_EVIDENCE_ROOT / "Dummy TR - KED coverage (TEA NiGe, DMSO Ti, KOH) report.xlsx",
         unresolvable_customer_name="EXAMPLE LAB",
-        # Diversifies KED coverage beyond Cust002_ventures_mea_ked_set1's
+        # Diversifies KED coverage beyond Cust41a14_ventures_mea_ked_set1's
         # one real chemical -- TEA (Ni, Ge), DMSO (Ti), KOH (no KED, real
         # negative case). Clean on first run (0 mismatches); later reused
         # to confirm Organic Anions/Acetate+Formate free-text matching
@@ -147,11 +147,11 @@ GOLDEN_PAIRS = [
         # category as Sulfur/Date-of-Analysis, not a new pipeline bug.
     ),
     GoldenPair(
-        name="Cust018_energy_water_acetate_formate",
-        input_path=_EVIDENCE_ROOT / "090925-Folder 048 Water ICPMS Anions Conductivity Silicon Real TR.xlsx",
+        name="Custfa5bf_energy_water_acetate_formate",
+        input_path=_EVIDENCE_ROOT / "090925-Folder b65a8 Water ICPMS Anions Conductivity Silicon Real TR.xlsx",
         legacy_output_path=_EVIDENCE_ROOT
-        / "090925-Folder 048 Water ICPMS Anions Conductivity Silicon Real TR Report.xlsx",
-        # Real customer (Folder 048), real "7 Anions + GBP" selection
+        / "090925-Folder b65a8 Water ICPMS Anions Conductivity Silicon Real TR Report.xlsx",
+        # Real customer (Folder b65a8), real "7 Anions + GBP" selection
         # PLUS "Acetate & Formate" typed in Additional Requests or Notes
         # on all 8 samples -- confirmed 2026-09-29 via 3 independent
         # checks (direct search of the real live legacy template's
@@ -162,7 +162,7 @@ GOLDEN_PAIRS = [
         # in the legacy macro, not a wording problem. report-engine
         # already bridges it correctly (merges Acetate/Formate into the
         # master anion panel, same "same-panel merge" design confirmed
-        # earlier via a different real customer, Folder 048
+        # earlier via a different real customer, Folder b65a8
         # Guatemala) -- direct user instruction: keep it, add as evidence.
     ),
     GoldenPair(
@@ -188,70 +188,70 @@ GOLDEN_PAIRS = [
         # matching quirk, not the real output. Clean.
     ),
     GoldenPair(
-        name="Folder 092_ky_pg",
-        input_path=_EVIDENCE_ROOT / "092626-Customer 047 PG Same Day RUSH Real TR.xlsx",
-        legacy_output_path=_EVIDENCE_ROOT / "092626-Customer 047 PG Same Day RUSH Real TR Report.xlsx",
-        # Real customer (Customer 047), real ppm unit override --
+        name="Folder 6c581_ky_pg",
+        input_path=_EVIDENCE_ROOT / "092626-Customer a359c PG Same Day RUSH Real TR.xlsx",
+        legacy_output_path=_EVIDENCE_ROOT / "092626-Customer a359c PG Same Day RUSH Real TR Report.xlsx",
+        # Real customer (Customer a359c), real ppm unit override --
         # closes the "spec-threshold/unit-override rendering is
         # effectively untestable via a dummy TR" gap for real. Confirmed
         # 2026-09-29: legacy's own real output has a literal bug here
         # ("All data in units of -1 unless otherwise noted" -- a broken
         # lookup/index, not intentional wording); report-engine's "ppm"
-        # is correct. "Customer 017" (real form text) had
-        # no form_key mapping to the existing "Customer 047"
+        # is correct. "Customer bce58" (real form text) had
+        # no form_key mapping to the existing "Customer a359c"
         # customer (id 16) -- fixed via CustomerService.add_form_key(),
-        # same self-heal pattern as Customer 054.
+        # same self-heal pattern as Customer b9386.
     ),
     GoldenPair(
-        name="Customer 169_water_limits",
-        input_path=Path(r"S:\Testing_Requests\Customer 169\2025\070325-Customer 169 Water Na Cu Cl Si.xlsx"),
-        legacy_output_path=Path(r"S:\Reports\Customer 169\2025\070325-Customer 169 Water Results.xlsx"),
+        name="Customer 436f6_water_limits",
+        input_path=Path(r"S:\Testing_Requests\Customer 436f6\2025\070325-Customer 436f6 Water Na Cu Cl Si.xlsx"),
+        legacy_output_path=Path(r"S:\Reports\Customer 436f6\2025\070325-Customer 436f6 Water Results.xlsx"),
         # Real Water customer with limits on file (Na 5, Si 3, Cl 5 in
         # legacy -- on the metals, silicon and anion panels). Added
         # 2026-09-30 when the new limit check found Water samples printed
         # no limits at all; locks in the fix.
     ),
     GoldenPair(
-        name="Customer 168_ipa_warning_limits",
-        input_path=Path(r"S:\Testing_Requests\Customer 168\2025\061725-Customer 168 IPA ICPMS Time Limited.xlsx"),
-        legacy_output_path=Path(r"S:\Reports\Customer 168\2025\061725-Customer 168 IPA Results Time Limited.xlsx"),
+        name="Customer 98168_ipa_warning_limits",
+        input_path=Path(r"S:\Testing_Requests\Customer 98168\2025\061725-Customer 98168 IPA ICPMS Time Limited.xlsx"),
+        legacy_output_path=Path(r"S:\Reports\Customer 98168\2025\061725-Customer 98168 IPA Results Time Limited.xlsx"),
         # Real customer with BOTH limit kinds: "Action Limit" in column A
         # and "Warning Limit" in an extra column B, every other column one
         # to the right (legacy inserted a column B). Added 2026-10-01 with
         # the limit-columns layout; locks in labels, values and the shift.
     ),
     GoldenPair(
-        name="Folder 092_houston_mibc",
-        input_path=_EVIDENCE_ROOT / "092826-Folder 092 FX RI MIBC DLV00133992 Same Day RUSH Real TR.xlsx",
-        legacy_output_path=_EVIDENCE_ROOT / "092826-Folder 092 FX RI MIBC DLV00133992 Same Day RUSH Real TR Report.xlsx",
-        # Real Customer 057: specification + "Control Limit" columns,
+        name="Folder 6c581_houston_mibc",
+        input_path=_EVIDENCE_ROOT / "092826-Folder 6c581 FX RI MIBC DLV00133992 Same Day RUSH Real TR.xlsx",
+        legacy_output_path=_EVIDENCE_ROOT / "092826-Folder 6c581 FX RI MIBC DLV00133992 Same Day RUSH Real TR Report.xlsx",
+        # Real Customer e6c40: specification + "Control Limit" columns,
         # and Additional Elements (Sb/As/B) run by Organic Dilute and
         # Shoot by agreement (Customer.additional_elements_prep) -- so
         # that block gets its own footer/SOPs and no limits. Legacy output
         # is the pre-edit state the chemist used to correct by hand.
     ),
     GoldenPair(
-        name="Customer 168_1pct_nh4oh",
-        input_path=Path(r"S:\Testing_Requests\Customer 168\2025\040925-Customer 168 1% NH4OH ICPMS Anions Assay Time Limited.xlsx"),
-        legacy_output_path=Path(r"S:\Reports\Customer 168\2025\040925-Customer 168 1% NH4OH ResultsTime Limited.xlsx"),
+        name="Customer 98168_1pct_nh4oh",
+        input_path=Path(r"S:\Testing_Requests\Customer 98168\2025\040925-Customer 98168 1% NH4OH ICPMS Anions Assay Time Limited.xlsx"),
+        legacy_output_path=Path(r"S:\Reports\Customer 98168\2025\040925-Customer 98168 1% NH4OH ResultsTime Limited.xlsx"),
         # Form text "1% NH4OH" was mapped (from the Access migration) to
         # chemical NH4OH, so these reports printed concentrated-NH4OH
         # limits (Al 0.1/0.05) instead of 1% NH4OH's (0.2/0.1). Remapped
         # 2026-10-01; 0 differences against the real report.
     ),
     GoldenPair(
-        name="chemco_Cust055_mecb",
-        input_path=Path(r"S:\Testing_Requests\Customer 100\091526-Customer 091 MeCb ICPMS STD.xlsx"),
-        legacy_output_path=Path(r"S:\Reports\Customer 100\091526-Customer 091 MeCb Results.xlsx"),
-        # Customer groups: Customer 091 has no limits of its own; the Chemco
+        name="chemco_Cust5b4b0_mecb",
+        input_path=Path(r"S:\Testing_Requests\Customer 46964\091526-Customer 6634a MeCb ICPMS STD.xlsx"),
+        legacy_output_path=Path(r"S:\Reports\Customer 46964\091526-Customer 6634a MeCb Results.xlsx"),
+        # Customer groups: Customer 6634a has no limits of its own; the Chemco
         # group's Methyl Carbitol limits apply, as in the legacy macro.
         # Added 2026-10-01 with the group; 0 differences (36 limits).
     ),
     GoldenPair(
-        name="chemco_Folder 092_pgmea",
-        input_path=Path(r"S:\Testing_Requests\Customer 100\030326-Customer 101 PGMEA STD.xlsx"),
-        legacy_output_path=Path(r"S:\Reports\Customer 100\030326-Customer 101 PGMEA Results.xlsx"),
-        # Customer 101: "Customer 099" customer text -> Customer 099 (#73),
+        name="chemco_Folder 6c581_pgmea",
+        input_path=Path(r"S:\Testing_Requests\Customer 46964\030326-Customer abfb5 PGMEA STD.xlsx"),
+        legacy_output_path=Path(r"S:\Reports\Customer 46964\030326-Customer abfb5 PGMEA Results.xlsx"),
+        # Customer abfb5: "Customer a1438" customer text -> Customer a1438 (#73),
         # a site of the Chemco group, whose PGMEA limits apply (36, matching).
     ),
 ]
@@ -422,7 +422,7 @@ KNOWN_OPEN_MISMATCHES: dict[str, frozenset[tuple[str, str]]] = {
             ("0.49%HF", "A50"), ("0.49%HF", "B50"), ("0.49%HF", "E50"),
         }
     ),
-    "Cust025_dmso_real": frozenset(
+    "Custb01e9_dmso_real": frozenset(
         {
             # "Date of Analysis" filled in -- date_of_analysis.py's own
             # docstring confirms this is a deliberate, already-confirmed
@@ -436,7 +436,7 @@ KNOWN_OPEN_MISMATCHES: dict[str, frozenset[tuple[str, str]]] = {
     "ked_coverage_dummy": frozenset(
         {
             # IPA's "Organic anions" (Notes column, correct wording/column
-            # this time -- see Cust018_energy_water_acetate_formate above
+            # this time -- see Custfa5bf_energy_water_acetate_formate above
             # for the full citation): dispatches to GBP + Acetate/Formate
             # as two separate panels (bare "Organic Anions" isn't merged
             # into a master anion panel the way "Acetate and Formate"
@@ -446,7 +446,7 @@ KNOWN_OPEN_MISMATCHES: dict[str, frozenset[tuple[str, str]]] = {
             ("IPA", "B73"), ("IPA", "C73"), ("IPA", "B74"), ("IPA", "C74"),
             # DMSO's "Acetate & Formate" (Notes column, retyped correctly
             # 2026-09-29) -- standalone Acetate/Formate, same confirmed
-            # real legacy gap as Cust018_energy_water_acetate_formate.
+            # real legacy gap as Custfa5bf_energy_water_acetate_formate.
             ("DMSO", "B66"), ("DMSO", "C66"), ("DMSO", "B67"), ("DMSO", "C67"),
             # KOH's metals_instrument corrected to ICPOES 2026-09-29
             # (direct user instruction) -- this pair's own legacy output
@@ -474,7 +474,7 @@ KNOWN_OPEN_MISMATCHES: dict[str, frozenset[tuple[str, str]]] = {
     # since every "Water N" sheet has the exact same coordinates for both
     # accepted-improvement categories. See the GoldenPair's own comment
     # above for the full citation.
-    "Cust018_energy_water_acetate_formate": frozenset(
+    "Custfa5bf_energy_water_acetate_formate": frozenset(
         (sheet, coord)
         for sheet in (f"Water {i}" for i in range(1, 9))
         for coord in (
@@ -485,7 +485,7 @@ KNOWN_OPEN_MISMATCHES: dict[str, frozenset[tuple[str, str]]] = {
             "B67", "C67", "B71", "C71",
         )
     ),
-    "Folder 092_ky_pg": frozenset(
+    "Folder 6c581_ky_pg": frozenset(
         (sheet, coord)
         for sheet in ("Propylene Glycol 1", "Propylene Glycol 2")
         for coord in (
@@ -498,7 +498,7 @@ KNOWN_OPEN_MISMATCHES: dict[str, frozenset[tuple[str, str]]] = {
             "D48", "D54", "D64",
         )
     ),
-    "Folder 092_houston_mibc": frozenset({
+    "Folder 6c581_houston_mibc": frozenset({
         # Additional Elements are Organic Dilute and Shoot for this
         # customer (direct user confirmation 2026-10-01), so that block
         # has no limits; legacy printed them there too and the chemist
@@ -511,14 +511,14 @@ KNOWN_OPEN_MISMATCHES: dict[str, frozenset[tuple[str, str]]] = {
         # Same DECIDED Date-of-Analysis improvement as every other pair.
         ("MIBC", "E48"), ("MIBC", "E56"),
     }),
-    "chemco_Folder 092_pgmea": frozenset({
-        # Sample-ID string: legacy resolved Customer 101 requests to the
-        # Customer 057 customer ("...-Customer 057-..."); they now
-        # resolve to Customer 099 ("...-Customer 099-..."). Direct user
-        # decision 2026-10-01 ("Customer 099 confirmed"). Limits identical.
+    "chemco_Folder 6c581_pgmea": frozenset({
+        # Sample-ID string: legacy resolved Customer abfb5 requests to the
+        # Customer e6c40 customer ("...-Customer e6c40-..."); they now
+        # resolve to Customer a1438 ("...-Customer a1438-..."). Direct user
+        # decision 2026-10-01 ("Customer a1438 confirmed"). Limits identical.
         ("PMAC", "D6"),
     }),
-    "Customer 169_water_limits": frozenset(
+    "Customer 436f6_water_limits": frozenset(
         # Same DECIDED Date-of-Analysis improvement as every other pair --
         # three footer lines per sheet (one row lower on Water 6).
         (sheet, coord)
@@ -559,7 +559,7 @@ def test_golden_pair_matches_real_legacy_output(pair: GoldenPair, tmp_path):
 # Pairs whose real legacy reports carry specification limits: one SX5,
 # one generic customer. Used to prove the limit check is live on real
 # output, not just on the synthetic workbooks in test_diff_limits.py.
-_PAIRS_WITH_LIMITS = ("sxos5_south_real", "Cust025_dmso_real", "Customer 168_ipa_warning_limits")
+_PAIRS_WITH_LIMITS = ("sxos5_south_real", "Custb01e9_dmso_real", "Customer 98168_ipa_warning_limits")
 
 
 @pytest.mark.parametrize("pair_name", _PAIRS_WITH_LIMITS)

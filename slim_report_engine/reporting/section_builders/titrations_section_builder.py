@@ -16,11 +16,11 @@ TS-SLG" are all wired into chemical_water_report_builder.py — confirmed
 against real completed reports (Assay: 3 different real Chemical
 customers; GC-FID and Moisture (Karl Fischer): one real Chemical
 customer's intake form uses both verbatim as Titrations selections, on
-the same submission; Sn+2/Free Acid/TS-SLG: S:\\Reports\\Customer 156's real
+the same submission; Sn+2/Free Acid/TS-SLG: S:\\Reports\\Customer d53ad's real
 "Ag-Sn Plating"/"SnAg" reports, which bundle all three together with a
 2-element Ag/Sn metals block and a UV-Vis reading on one sheet -- the
 generic builders here are the ones GENERIC to any customer requesting
-that catalog analysis; Customer 156's own specific bundling of them together on
+that catalog analysis; Customer d53ad's own specific bundling of them together on
 one sheet is its own customer-specific workflow, not reproduced here).
 
 EXCLUDED (customer-specific edge cases, deferred, same bucket as other
@@ -92,7 +92,7 @@ def build_gc_fid(id: str, date_of_analysis: str | None = None) -> ReportSection:
 
 
 def build_sn2_iodine_titration(id: str, date_of_analysis: str | None = None) -> ReportSection:
-    """Confirmed real (S:\\Reports\\Customer 156, multiple 2026 "Ag-Sn Plating"/
+    """Confirmed real (S:\\Reports\\Customer d53ad, multiple 2026 "Ag-Sn Plating"/
     "SnAg" reports, one-time permission granted 2026-09-17): "Determination
     of Sn+" in column 1 of the header row -- a real, specific title, not
     paraphrased from the catalog's own "Sn+2 Iodine Titration" name.
@@ -111,7 +111,7 @@ def build_sn2_iodine_titration(id: str, date_of_analysis: str | None = None) -> 
 
 
 def build_free_acid(id: str, date_of_analysis: str | None = None) -> ReportSection:
-    """Confirmed real (same Customer 156 reports as build_sn2_iodine_titration,
+    """Confirmed real (same Customer d53ad reports as build_sn2_iodine_titration,
     same sheet, same footer-method caveat)."""
     section = ReportSection(id)
     max_columns = row_builders.add_simple_header_row(
@@ -123,7 +123,7 @@ def build_free_acid(id: str, date_of_analysis: str | None = None) -> ReportSecti
 
 
 def build_ts_slg(id: str, date_of_analysis: str | None = None) -> ReportSection:
-    """Confirmed real (same Customer 156 reports). One of 5 real instances checked
+    """Confirmed real (same Customer d53ad reports). One of 5 real instances checked
     reads "Analysis by Auto-Titrator" instead of "Analysis by Hand
     Titration" -- same majority-form/hand-correctable caveat as
     build_sn2_iodine_titration."""
@@ -137,13 +137,13 @@ def build_ts_slg(id: str, date_of_analysis: str | None = None) -> ReportSection:
 
 
 def build_uv_vis(id: str, wavelengths: list[str], date_of_analysis: str | None = None) -> ReportSection:
-    """Confirmed real (S:\\Reports\\Folder 081, one-time permission granted
-    2026-09-17: "010526-Folder 081 Acetonitrile Results.xlsx", matching the
+    """Confirmed real (S:\\Reports\\Folder 2b00f, one-time permission granted
+    2026-09-17: "010526-Folder 2b00f Acetonitrile Results.xlsx", matching the
     real intake form's free-text request "UV Vis Abs @ 190,200,210,220,
     230,254,400nm"). A variable-length wavelength/absorbance table, NOT a
     single reading -- the catalog's own "UV-Vis" description ("Absorbsion
     spectra by UV-Vis") confirms a spectrum scan is the real intent. This
-    is a genuinely DIFFERENT thing from Customer 156's own "TS-140AD" (a fixed,
+    is a genuinely DIFFERENT thing from Customer d53ad's own "TS-140AD" (a fixed,
     single-value, customer-specific hand addition seen in the Ag-Sn
     Plating bundle) -- not the same test under two names, per direct user
     confirmation (2026-09-17): "UV-Vis and SnAg are two separate things".

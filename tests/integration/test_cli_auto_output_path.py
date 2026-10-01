@@ -49,13 +49,13 @@ def _seed_and_build_services(db_url: str, report_folder: Path) -> tuple[ReportEn
         session.add(_ElementRow(element_symbol=symbol, element_name=symbol))
 
     customer = _CustomerRow(
-        customer_name="Customer 130", street_address="123 Main St",
+        customer_name="Customer ea6f9", street_address="123 Main St",
         city="Springfield", state="IL", postal_code="62701", country="USA",
     )
     session.add(customer)
     session.flush()
     session.add(_FormCustomerRow(
-        form_customer="Customer 130", form_address="123 Main St", form_address_2="Springfield, IL",
+        form_customer="Customer ea6f9", form_address="123 Main St", form_address_2="Springfield, IL",
         customer_id=customer.id,
     ))
 
@@ -88,7 +88,7 @@ def _seed_and_build_services(db_url: str, report_folder: Path) -> tuple[ReportEn
 def _make_input_workbook(path: Path) -> None:
     wb = openpyxl.load_workbook(_FORM_PATH)
     ws = wb.active
-    ws["C10"] = "Customer 130"
+    ws["C10"] = "Customer ea6f9"
     ws["C11"] = "123 Main St"
     ws["C12"] = "Springfield, IL"
     ws["P5"] = date(2026, 3, 5)
@@ -106,10 +106,10 @@ pytestmark = pytest.mark.skipif(
 
 def test_auto_output_path_writes_to_mapped_folder(tmp_path):
     db_url = f"sqlite:///{tmp_path / 'test.db'}"
-    report_folder = tmp_path / "Reports" / "Customer 130"
+    report_folder = tmp_path / "Reports" / "Customer ea6f9"
     services, _ = _seed_and_build_services(db_url, report_folder)
 
-    input_path = tmp_path / "090126 Customer 130 Widgets STD.xlsx"
+    input_path = tmp_path / "090126 Customer ea6f9 Widgets STD.xlsx"
     _make_input_workbook(input_path)
 
     result_path = run(input_path, None, db_url=None, services=services)
@@ -122,10 +122,10 @@ def test_run_logs_version_customer_and_output_on_success(tmp_path, caplog):
     import logging
 
     db_url = f"sqlite:///{tmp_path / 'test.db'}"
-    report_folder = tmp_path / "Reports" / "Customer 130"
+    report_folder = tmp_path / "Reports" / "Customer ea6f9"
     services, _ = _seed_and_build_services(db_url, report_folder)
 
-    input_path = tmp_path / "090126 Customer 130 Widgets STD.xlsx"
+    input_path = tmp_path / "090126 Customer ea6f9 Widgets STD.xlsx"
     _make_input_workbook(input_path)
 
     with caplog.at_level(logging.INFO):
@@ -133,7 +133,7 @@ def test_run_logs_version_customer_and_output_on_success(tmp_path, caplog):
 
     success_lines = [r.getMessage() for r in caplog.records if "SUCCESS" in r.getMessage()]
     assert len(success_lines) == 1
-    assert "Customer 130" in success_lines[0]
+    assert "Customer ea6f9" in success_lines[0]
     assert input_path.name in success_lines[0]
     assert str(result_path) in success_lines[0]
     assert "slim-report-engine v" in success_lines[0]
@@ -142,10 +142,10 @@ def test_run_logs_version_customer_and_output_on_success(tmp_path, caplog):
 
 def test_auto_output_path_refuses_to_overwrite_existing_file(tmp_path):
     db_url = f"sqlite:///{tmp_path / 'test.db'}"
-    report_folder = tmp_path / "Reports" / "Customer 130"
+    report_folder = tmp_path / "Reports" / "Customer ea6f9"
     services, _ = _seed_and_build_services(db_url, report_folder)
 
-    input_path = tmp_path / "090126 Customer 130 Widgets STD.xlsx"
+    input_path = tmp_path / "090126 Customer ea6f9 Widgets STD.xlsx"
     _make_input_workbook(input_path)
 
     first_result = run(input_path, None, db_url=None, services=services)

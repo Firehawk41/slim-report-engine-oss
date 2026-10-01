@@ -48,7 +48,7 @@ class _FakeElementService:
 
 
 _CUSTOMER = Customer(
-    id=1, name="Customer 130", street_address="1 Main St",
+    id=1, name="Customer ea6f9", street_address="1 Main St",
     city="Springfield", state="IL", postal_code="62701", country="USA",
 )
 
@@ -87,7 +87,7 @@ def _submission(samples: list[TRSample]) -> TRSubmission:
         file_name="test.xlsx",
         service_date=date(1901, 1, 1),
         download_date=datetime(2026, 3, 5, 12, 0, 0),
-        form_customer_name="Customer 130",
+        form_customer_name="Customer ea6f9",
         form_customer_address="",
         form_customer_address_2="",
         samples=tuple(samples),
@@ -105,8 +105,8 @@ def test_two_samples_sharing_all_four_keys_land_on_one_sheet():
     )
     assert len(results) == 1
     sample_id_row = results[0].section.rows[5]
-    assert sample_id_row.get_value(5) == "030526-150mm Wafers-Customer 130-Slot-1"
-    assert sample_id_row.get_value(6) == "030526-150mm Wafers-Customer 130-Slot-2"
+    assert sample_id_row.get_value(5) == "030526-150mm Wafers-Customer ea6f9-Slot-1"
+    assert sample_id_row.get_value(6) == "030526-150mm Wafers-Customer ea6f9-Slot-2"
 
 
 def test_different_processing_time_splits_into_separate_sheets():
@@ -149,9 +149,9 @@ def test_10_and_26_elements_normalize_to_36_and_group_together():
     assert len(results) == 1
     assert results[0].section.id == "36 Elements"
     sample_id_row = results[0].section.rows[5]
-    assert sample_id_row.get_value(5) == "030526-150mm Wafers-Customer 130-Slot-1"
-    assert sample_id_row.get_value(6) == "030526-150mm Wafers-Customer 130-Slot-2"
-    assert sample_id_row.get_value(7) == "030526-150mm Wafers-Customer 130-Slot-3"
+    assert sample_id_row.get_value(5) == "030526-150mm Wafers-Customer ea6f9-Slot-1"
+    assert sample_id_row.get_value(6) == "030526-150mm Wafers-Customer ea6f9-Slot-2"
+    assert sample_id_row.get_value(7) == "030526-150mm Wafers-Customer ea6f9-Slot-3"
 
 
 def test_67_elements_and_36_elements_stay_separate_groups():

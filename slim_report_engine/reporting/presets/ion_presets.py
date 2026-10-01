@@ -78,7 +78,7 @@ def anions_7() -> list[Analyte]:
 
 def anions_cl() -> list[Analyte]:
     """Chlorine/Chloride alone -- confirmed real (2026-09-17, direct user
-    correction, matching a real Customer 169 Water intake form): same rendering
+    correction, matching a real Customer 436f6 Water intake form): same rendering
     as any other Anion panel, just with a single row. Same shape as
     cations_nh4() below (a single-ion "panel")."""
     return [Analyte("Chloride", "Cl", 2)]
@@ -94,8 +94,8 @@ def acetate_and_formate() -> list[Analyte]:
     Anions list, which has one) -- omitted rather than guessed.
 
     Formate's symbol corrected 2026-09-25 (direct real-evidence diff
-    against a real completed Folder 048 report, S:\\Reports\\Cust018
-    Energy Guatemala\\2025\\041025-Folder 048 Water Results Set #1.xlsx):
+    against a real completed Folder b65a8 report, S:\\Reports\\Custfa5bf
+    Energy Guatemala\\2025\\041025-Folder b65a8 Water Results Set #1.xlsx):
     "HCO2", not "CHO2" -- both notations represent the same real ion, but
     the real template/legacy output consistently uses "HCO2"."""
     return [

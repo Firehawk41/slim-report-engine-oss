@@ -114,7 +114,7 @@ ION_PANEL_SOP_CODES: dict[str, list[str]] = {
     "5 Anions + MS Confirmation": ["SOP-46", "SOP-59"],
     # "Cl" (chloride-only), plain "Anions" (Water matrix, no specific
     # count), and plain "5 Anions" (confirmed real 2026-09-25 against a
-    # real Customer 037 Water intake form's own "5 Anions"
+    # real Customer a13e6 Water intake form's own "5 Anions"
     # selection, direct user instruction) all use the same codes as
     # "4 Anions" -- not a different method, just a smaller/differently-
     # labeled selection off the same real panel. NOT the same as "5
@@ -124,13 +124,13 @@ ION_PANEL_SOP_CODES: dict[str, list[str]] = {
     "Anions": ["SOP-46", "SOP-06"],
     "5 Anions": ["SOP-46", "SOP-06"],
     # "7 Anions" confirmed real 2026-09-25 (found while regenerating
-    # Folder 111 Animal Health's evidence workbook, which selects all 7 real
+    # Folder 3da91 Animal Health's evidence workbook, which selects all 7 real
     # anions) -- same real panel/method as "4 Anions"/"5 Anions"/"Cl"/
     # "Anions" above, just a larger subset.
     "7 Anions": ["SOP-46", "SOP-06"],
     # "GBP" confirmed real 2026-09-25, direct user instruction ("GBP is
     # same as regular anions") -- same codes as the core Anion subsets
-    # above, found while regenerating Folder 111 Animal Health's evidence
+    # above, found while regenerating Folder 3da91 Animal Health's evidence
     # workbook (its own GBP table was rendering with no Test Methods
     # line at all).
     "GBP": ["SOP-46", "SOP-06"],
@@ -148,7 +148,7 @@ ION_PANEL_SOP_CODES: dict[str, list[str]] = {
 }
 # The lab's own SOP master list gives real codes for several more real ion
 # panels/preps -- PPT Anions (SOP-11 alone, no SOP-46 base -- matches a
-# previously-observed real Customer 165 Water code with no confirmed panel),
+# previously-observed real Customer 846be Water code with no confirmed panel),
 # H2O2 Anions (SOP-46, SOP-16), Caustic (SOP-46, SOP-15), PPT Cations
 # (SOP-12 alone) -- but none of "PPT"/"PPB"/"H2O2"/"Caustic" match any
 # resolved analysis name in the real catalog (checked directly), and none
@@ -186,7 +186,7 @@ SIMPLE_SHAPE_SOP_CODES: dict[str, list[str]] = {
     "Moisture": ["SOP-18"],
     "Bacteria Count": ["SOP-36"],
     # pH/Density confirmed real 2026-09-25, direct user instruction (found
-    # while regenerating Customer 033's evidence workbook, which
+    # while regenerating Customer 55a6b's evidence workbook, which
     # was missing both). "pH" here is misc_analysis_section_builder's own
     # block specifically -- NOT the same dict electrical_section_builder
     # reads (see ELECTRICAL_SOP_CODES below), though both happen to use

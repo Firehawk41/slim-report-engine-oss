@@ -102,7 +102,7 @@ class ReportRow:
     def set_note(self, col_index: int, text: str) -> None:
         """Marks a bold-red footnote marker (e.g. "Note 1") at col_index,
         written with NO border/fill -- confirmed real (2026-09-28, direct
-        user correction, a real Folder 031 Z-report): the KED-mode
+        user correction, a real Folder 3978d Z-report): the KED-mode
         marker for an element row lives in a column just past the panel's
         own bordered box (column 7, one past the metals panel's MDL
         column), not as bold-red styling ON the element's own symbol cell.

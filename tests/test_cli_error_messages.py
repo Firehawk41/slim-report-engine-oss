@@ -47,13 +47,13 @@ def test_real_unresolved_chemical_keeps_the_original_wording():
 
 
 def test_report_folder_error_default_wording_when_never_mapped():
-    e = UnresolvedReportFolderReportError(1, "Customer 130")
+    e = UnresolvedReportFolderReportError(1, "Customer ea6f9")
     assert "needs to be set before a report can be saved" in str(e)
 
 
 def test_report_folder_error_reason_wording_when_mapped_but_unreachable():
     e = UnresolvedReportFolderReportError(
-        1, "Customer 130", reason="the mapped folder (\\\\share\\Acme) could not be reached -- offline."
+        1, "Customer ea6f9", reason="the mapped folder (\\\\share\\Acme) could not be reached -- offline."
     )
     assert "Could not use the report folder mapped for customer" in str(e)
     assert "could not be reached -- offline." in str(e)

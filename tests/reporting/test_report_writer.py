@@ -345,7 +345,7 @@ def test_write_row_no_merges_by_default(ws):
 
 
 def test_write_row_applies_real_superscript_rich_text(ws):
-    """Confirmed real 2026-09-26 (S:\\Reports\\Customer 110): Wafer's own
+    """Confirmed real 2026-09-26 (S:\\Reports\\Customer abf1e): Wafer's own
     "Results in units of atoms/cm2" note has a genuinely superscript
     trailing "2" -- real Excel rich text, not a plain string."""
     from openpyxl.cell.rich_text import CellRichText, TextBlock
@@ -364,7 +364,7 @@ def test_write_row_applies_real_superscript_rich_text(ws):
     assert superscript_block.font.vertAlign == "superscript"
     # Matches the row's own already-applied font (NormalBold -- Arial,
     # size 10, bold), not some hardcoded font -- confirmed real (the
-    # actual Customer 110 cell's rich text uses this exact base font).
+    # actual Customer abf1e cell's rich text uses this exact base font).
     assert superscript_block.font.rFont == "Arial"
     assert superscript_block.font.sz == 10
     assert superscript_block.font.b is True
@@ -401,7 +401,7 @@ def test_write_row_no_superscript_runs_by_default(ws):
 
 
 def test_write_row_note_marker_is_bold_red_with_no_border(ws):
-    """Confirmed real (2026-09-28, a real Folder 031 Z-report): the
+    """Confirmed real (2026-09-28, a real Folder 3978d Z-report): the
     KED-mode "Note 1" marker sits one column past the panel's own
     max_columns=6 bordered box, bold red, with NO border/fill of its own."""
     row = ReportRow(style_name="DataLabel", max_columns=6)
@@ -488,14 +488,14 @@ def test_apply_header_footer_sets_expected_fields(ws):
     report_writer.apply_header_footer(
         ws,
         center_header="36 Elements",
-        customer_name="Customer 130",
+        customer_name="Customer ea6f9",
         customer_address_line1="123 Main St",
         customer_address_line2="Springfield, IL",
         lab_header_lines=("Some Lab", "100 Industrial Pkwy", "Phone: 555-0100"),
     )
     assert ws.oddHeader.left.text == "Some Lab\n100 Industrial Pkwy\nPhone: 555-0100"
     assert ws.oddHeader.center.text == "36 Elements"
-    assert "Customer 130" in ws.oddHeader.right.text
+    assert "Customer ea6f9" in ws.oddHeader.right.text
     assert ws.oddFooter.center.text == "&F"
     assert ws.oddFooter.right.text == "Page &P"
     assert ws.page_margins.top == 0.99
@@ -507,7 +507,7 @@ def test_apply_header_footer_survives_a_real_save_and_reload(tmp_path):
     report_writer.apply_header_footer(
         ws,
         center_header="36 Elements",
-        customer_name="Customer 130",
+        customer_name="Customer ea6f9",
         customer_address_line1="123 Main St",
         customer_address_line2="Springfield, IL",
     )
@@ -556,7 +556,7 @@ def test_apply_header_footer_no_lab_lines_leaves_left_header_unset(ws):
     report_writer.apply_header_footer(
         ws,
         center_header="TOC",
-        customer_name="Customer 130",
+        customer_name="Customer ea6f9",
         customer_address_line1="",
         customer_address_line2="",
     )
@@ -571,7 +571,7 @@ def test_apply_header_footer_no_lab_lines_survives_save_and_reload(tmp_path):
     report_writer.apply_header_footer(
         ws,
         center_header="TOC",
-        customer_name="Customer 130",
+        customer_name="Customer ea6f9",
         customer_address_line1="",
         customer_address_line2="",
     )
@@ -582,7 +582,7 @@ def test_apply_header_footer_no_lab_lines_survives_save_and_reload(tmp_path):
     reloaded_ws = reloaded.active
     assert reloaded_ws.oddHeader.center.text == "TOC"
     assert reloaded_ws.oddHeader.right.text is not None
-    assert "Customer 130" in reloaded_ws.oddHeader.right.text
+    assert "Customer ea6f9" in reloaded_ws.oddHeader.right.text
 
 
 # ---------------------------------------------------------------------------

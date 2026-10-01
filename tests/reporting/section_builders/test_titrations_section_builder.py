@@ -53,7 +53,7 @@ def test_build_gc_fid_shape():
 
 
 def test_build_sn2_iodine_titration_shape():
-    """Confirmed real (S:\\Reports\\Customer 156's "Ag-Sn Plating"/"SnAg"
+    """Confirmed real (S:\\Reports\\Customer d53ad's "Ag-Sn Plating"/"SnAg"
     reports)."""
     section = builder.build_sn2_iodine_titration("Sn+2 Iodine Titration")
     header, data = section.rows[1], section.rows[2]
@@ -85,7 +85,7 @@ def test_build_ts_slg_shape():
 
 
 def test_build_uv_vis_shape():
-    """Confirmed real (S:\\Reports\\Folder 081's real Acetonitrile report,
+    """Confirmed real (S:\\Reports\\Folder 2b00f's real Acetonitrile report,
     matching its intake form's free-text request for these exact 7
     wavelengths)."""
     wavelengths = ["190 nm", "200 nm", "210 nm", "220 nm", "230 nm", "254 nm", "400 nm"]

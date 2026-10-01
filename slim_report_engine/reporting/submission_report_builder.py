@@ -103,7 +103,7 @@ class OutputSheet:
     # values -- NOT for a sheet title (see title_cell_stamp below).
     extra_cell_stamps: tuple[tuple[str, str], ...] = ()
     # (cell_address, text) for Wafer's own A1 sheet title -- separate from
-    # extra_cell_stamps (2026-09-25, direct user correction, Cust082) since
+    # extra_cell_stamps (2026-09-25, direct user correction, Custc4ea4) since
     # a title needs real font styling (report_writer.apply_title_cell),
     # unlike extra_cell_stamps' plain values. None for every non-Wafer
     # sheet -- their titles ride through a real "SectionTitle" ReportRow
@@ -423,7 +423,7 @@ def _specs_for_sample(
     """Real per-(customer, chemical) spec limits from the Specification
     data (slim-domain), for Chemical AND Water samples -- a Water sample
     resolves to the real "Water" chemical record, and the legacy macro
-    looks Water limits up the same way (confirmed real: Customer 169's Water
+    looks Water limits up the same way (confirmed real: Customer 436f6's Water
     report prints Na/Si/Cl limits; an earlier version returned {} for
     every Water sample and printed none). {} when the resolved
     customer+chemical genuinely has no spec on file, never guessed.
@@ -444,7 +444,7 @@ def _warning_limits_for_sample(
 ) -> dict[str, float]:
     """The customer's warning limits for this sample's chemical -- the
     second limit table the legacy macro read (Warning_Limits_Database),
-    printed in their own column (Customer 168, Customer 057). {} when none."""
+    printed in their own column (Customer 98168, Customer e6c40). {} when none."""
     chemical = chemical_service.load_chemical(sample.chemical_id)
     if chemical is None:
         return {}
@@ -486,7 +486,7 @@ def _unit_override_for_sample(
     units of <X> unless otherwise noted"), when this customer+chemical's
     specs are on file in something other than ppb -- see
     SpecificationService.get_unit_override for the confirmed-real
-    Customer 047 / PG ("ppm") evidence. Applies to Water samples
+    Customer a359c / PG ("ppm") evidence. Applies to Water samples
     too, as in the legacy macro (see _specs_for_sample). None (the
     default ppb wording) when there's genuinely no override.
     """

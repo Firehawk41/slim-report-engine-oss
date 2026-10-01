@@ -521,7 +521,7 @@ def run(
             report_writer.apply_title_cell(ws, *sheet.title_cell_stamp)
         if sheet.processing_time_stamp is not None:
             # Moves right with the content when a sheet has extra limit
-            # columns (legacy Customer 168: "D1" becomes "E1").
+            # columns (legacy Customer 98168: "D1" becomes "E1").
             address, *rest = sheet.processing_time_stamp
             report_writer.apply_processing_time_stamp(
                 ws, report_writer.shift_cell_address(address, sheet.limit_columns), *rest

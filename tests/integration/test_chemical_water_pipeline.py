@@ -39,7 +39,7 @@ _FORM_PATH = (
 )
 
 _STUB_CUSTOMER = Customer(
-    id=1, name="Customer 130", street_address="123 Main St",
+    id=1, name="Customer ea6f9", street_address="123 Main St",
     city="Springfield", state="IL", postal_code="62701", country="USA",
 )
 _STUB_CHEMICAL = Chemical(id=7, name="Test Acid", metals_prep="N/A", silicon_prep="N/A", ions_prep="N/A")
@@ -75,7 +75,7 @@ def test_real_chemical_form_flows_through_parse_and_transform(session):
 
     # Fill in the fixed customer cells (StubResolver ignores their content,
     # but a real resolver would need them -- filled for realism).
-    ws["C10"] = "Customer 130"
+    ws["C10"] = "Customer ea6f9"
     ws["C11"] = "123 Main St"
     ws["C12"] = "Springfield, IL"
     ws["P5"] = date(2026, 3, 5)  # date received -- required on the current template

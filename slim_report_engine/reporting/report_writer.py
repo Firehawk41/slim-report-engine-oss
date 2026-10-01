@@ -100,7 +100,7 @@ LIMIT_NUMBER_FORMAT = "0.000"
 
 _ALIGN_CENTER = Alignment(horizontal="center")
 # wrap_text=True added 2026-09-25 (direct user correction, confirmed
-# across multiple real generated reports -- ACX, Customer 138): the "EXAMPLE LAB
+# across multiple real generated reports -- ACX, Customer d17a1): the "EXAMPLE LAB
 # Results"/"EXAMPLE LAB Result" header text is wider than its own column and
 # was overflowing into the neighboring cell instead of wrapping onto a
 # second line, unlike the sample-ID echo cell (_ALIGN_CENTER_WRAP below),
@@ -152,7 +152,7 @@ def apply_style(ws: Worksheet, row_index: int, min_col: int, max_col: int, style
 
     if style_name == "NormalBoldRed":
         # No border, no fill (matches "Normal"), but bold red text --
-        # confirmed real (2026-09-28, a real Folder 031 Z-report):
+        # confirmed real (2026-09-28, a real Folder 3978d Z-report):
         # the KED-mode footer note ("Note 1: ICPMS-KEDS used for the
         # reduction of interferences") is itself bold red, same font as
         # the inline "Note 1" marker (ReportRow.set_note) it links to.
@@ -376,7 +376,7 @@ def _apply_superscript_runs(
     """Rewrites this cell's plain string value (already written by
     write_row's main loop) as real superscript rich text -- confirmed
     real (direct openpyxl inspection of a live production report,
-    S:\\Reports\\Customer 110): the real cell is genuine Excel rich
+    S:\\Reports\\Customer abf1e): the real cell is genuine Excel rich
     text, not a Unicode superscript character or a caret. Matches the
     cell's OWN already-applied font (set by apply_style just before this
     runs) for every run's base attributes, only adding vertAlign=
@@ -585,7 +585,7 @@ def apply_plain_cell_stamp(ws: Worksheet, cell_address: str, value: str) -> None
 
 def apply_title_cell(ws: Worksheet, cell_address: str, text: str) -> None:
     """Wafer's own A1 sheet title (e.g. "200mm Wafers") -- confirmed real
-    gap (2026-09-25, direct user correction, Cust082): this cell was being
+    gap (2026-09-25, direct user correction, Custc4ea4): this cell was being
     written as a bare value with no font at all, unlike every other
     report family's title, which rides through a real "SectionTitle"
     ReportRow and gets bold Arial 12 (_FONT_TITLE) applied automatically.

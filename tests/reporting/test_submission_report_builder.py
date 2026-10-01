@@ -109,7 +109,7 @@ class _FakeSpecificationService:
 
 
 _CUSTOMER = Customer(
-    id=1, name="Customer 130", street_address="1 Main St",
+    id=1, name="Customer ea6f9", street_address="1 Main St",
     city="Springfield", state="IL", postal_code="62701", country="USA",
 )
 _SX5 = Customer(
@@ -155,7 +155,7 @@ def _submission(
         file_name=file_name,
         service_date=date(1901, 1, 1),
         download_date=datetime(2026, 3, 5, 12, 0, 0),
-        form_customer_name="Customer 130",
+        form_customer_name="Customer ea6f9",
         form_customer_address="",
         form_customer_address_2="",
         samples=tuple(samples),
@@ -200,7 +200,7 @@ def test_generic_chemical_sample_string_stamped_into_every_section():
     sheets = dispatcher.build_submission_sheets(
         submission, _CUSTOMER, _FakeChemicalService(), analysis_svc, _FakeElementService(), _FakeSpecificationService()
     )
-    expected = "030526-Test Acid Matrix-Customer 130-S-001"
+    expected = "030526-Test Acid Matrix-Customer ea6f9-S-001"
     real_sections = sheets[0].sections[1:]  # sections[0] is the header preamble
     assert len(real_sections) == 2
     for section in real_sections:
@@ -214,7 +214,7 @@ def test_water_sample_string_uses_the_literal_water_chemical_name():
     sheets = dispatcher.build_submission_sheets(
         submission, _CUSTOMER, _FakeChemicalService(), analysis_svc, _FakeElementService(), _FakeSpecificationService()
     )
-    assert sheets[0].sections[1].rows[0].get_value(4) == "030526-Water-Customer 130-S-001"
+    assert sheets[0].sections[1].rows[0].get_value(4) == "030526-Water-Customer ea6f9-S-001"
 
 
 def test_sample_with_multiple_independent_analyses_lands_on_one_sheet():
@@ -306,7 +306,7 @@ def test_wafer_request_type_routes_to_wafer_builder_regardless_of_customer():
     assert len(sheets) == 1
     assert sheets[0].header_title == "150mm Wafers"
     # A1's title moved to its own styled field (2026-09-25, direct user
-    # correction, Cust082): extra_cell_stamps writes plain unstyled values,
+    # correction, Custc4ea4): extra_cell_stamps writes plain unstyled values,
     # but the title needs real font styling (report_writer.apply_title_cell).
     assert sheets[0].extra_cell_stamps == ()
     assert sheets[0].title_cell_stamp == ("A1", "150mm Wafers")
@@ -671,7 +671,7 @@ def test_chemical_sample_with_no_unit_override_uses_the_default_ppb_wording():
 
 def test_chemical_sample_with_a_real_unit_override_substitutes_it_into_the_preamble():
     """Confirmed real (modReportCreator.bas's Get_Specs, direct VBA source
-    check 2026-09-28; matches a real completed report, Customer 047's
+    check 2026-09-28; matches a real completed report, Customer a359c's
     PG, unit "ppm" on file): the preamble's own "ppb" gets replaced with
     whatever real unit the customer+chemical's specs are on file in."""
     samples = [_sample("S-001", analysis_ids=(1,), chemical_id=1)]
@@ -955,7 +955,7 @@ def test_a_site_with_no_limits_of_its_own_uses_its_groups_limits():
     """Customer groups (2026-10-01): a Chemco site has no limits of its own;
     the Chemco group's limits for that chemical apply, as in the legacy macro."""
     site = Customer(
-        id=5, name="Group Site", street_address="1 Plant Rd", city="Cust055", state="LA",
+        id=5, name="Group Site", street_address="1 Plant Rd", city="Cust5b4b0", state="LA",
         postal_code="70057", country="USA", parent_customer_id=40,
     )
     submission = _submission([_sample("S-1", analysis_ids=(1,), chemical_id=9)])

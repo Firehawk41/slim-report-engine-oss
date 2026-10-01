@@ -10,7 +10,7 @@ def test_build_header_preamble_default_units_line_is_ppb():
 
 def test_build_header_preamble_unit_override_substitutes_into_the_units_line():
     """Confirmed real (modReportCreator.bas's Get_Specs, direct VBA source
-    check 2026-09-28; matches a real completed report, Folder 092
+    check 2026-09-28; matches a real completed report, Folder 6c581
     Kentucky's PG, "All data in units of ppm unless otherwise noted")."""
     section = row_builders.build_header_preamble("PG", unit_override="ppm")
     units_row = section.rows[3]
@@ -78,7 +78,7 @@ def test_add_analyte_row_with_spec_present():
 
 def test_add_analyte_row_with_spec_is_ked_adds_note_marker_not_symbol_styling():
     """Confirmed real (2026-09-28, direct user correction, a real
-    Folder 031 Z-report): the KED-mode marker is a bold-red
+    Folder 3978d Z-report): the KED-mode marker is a bold-red
     "Note 1" in column 7, just past the panel's own bordered box -- NOT
     bold-red styling on the element's own symbol cell (column 3), and the
     row's style stays plain "DataLabel" either way."""
@@ -103,7 +103,7 @@ def test_add_simple_header_row_optional_columns_omitted_when_blank():
     assert header.get_value(5) is None
     assert header.get_value(6) is None
     # Confirmed real gap (2026-09-25, direct user correction,
-    # Customer 033): a bare single-result shape's header row was
+    # Customer 55a6b): a bare single-result shape's header row was
     # still styled out to the shared 6-column default, leaving an
     # unlabeled but still blue-filled "extra" column or two past the
     # real content -- now narrowed to just what's actually used.
@@ -200,7 +200,7 @@ def test_add_footer_row_with_ked_note_sits_under_footer_and_test_methods():
     above Test Methods (the original 2026-09-23 fix's ordering, based on
     a real report that predated Test Methods and so never actually
     exercised this ordering). Text/style also corrected 2026-09-28
-    (checked against 60+ real Folder 031 Reports): no "mode",
+    (checked against 60+ real Folder 3978d Reports): no "mode",
     no trailing period, and the line is bold red."""
     section = ReportSection("test")
     row_builders.add_footer_row(

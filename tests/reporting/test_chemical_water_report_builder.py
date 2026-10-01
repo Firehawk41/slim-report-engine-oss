@@ -267,7 +267,7 @@ def test_4_anions_panel_has_4_rows_labeled_anion():
 
 
 def test_4_anions_chemical_request_uses_elution_order_by_default():
-    """Confirmed real (Customer 156, a Chemical sample): ion panels list analytes
+    """Confirmed real (Customer d53ad, a Chemical sample): ion panels list analytes
     in a fixed, elution-off-the-IC-column order, not alphabetically."""
     svc = _FakeAnalysisService({1: "4 Anions"})
     sections = orchestrator.build_sections(_sample((1,)), svc, _FakeElementService())
@@ -276,7 +276,7 @@ def test_4_anions_chemical_request_uses_elution_order_by_default():
 
 
 def test_4_anions_water_request_uses_alphabetical_order():
-    """Confirmed real (Customer 165, a Water sample): ion panels list analytes
+    """Confirmed real (Customer 846be, a Water sample): ion panels list analytes
     alphabetically by name -- a real, deliberate difference from Chemical's
     elution order, not an inconsistency to unify."""
     svc = _FakeAnalysisService({1: "4 Anions"})
@@ -331,7 +331,7 @@ def test_4_anions_panel_has_confirmed_test_methods_row():
 
 def test_5_anions_panel_has_confirmed_test_methods_row():
     """Confirmed real 2026-09-25 (direct user instruction, a real
-    Customer 037 Water intake form's own plain "5 Anions"
+    Customer a13e6 Water intake form's own plain "5 Anions"
     selection) -- same codes as "4 Anions", not a different method, just
     a differently-labeled selection off the same real panel. NOT the
     same as "5 Anions + MS Confirmation", a genuinely different,
@@ -344,7 +344,7 @@ def test_5_anions_panel_has_confirmed_test_methods_row():
 
 def test_cl_panel_has_1_row_labeled_anion():
     """Confirmed real (2026-09-17, direct user correction, matching a
-    real Customer 169 Water intake form): "Cl" is a standalone single-ion Anion
+    real Customer 436f6 Water intake form): "Cl" is a standalone single-ion Anion
     selection, same rendering as any other Anion panel just with one
     row. SOP mapping (2026-09-25, direct user correction): Cl gets the
     SAME SOP codes as the other anion panels ("4 Anions" etc), not a bare
@@ -363,7 +363,7 @@ def test_cl_panel_has_1_row_labeled_anion():
 
 def test_gbp_panel_labeled_anion():
     """Confirmed real 2026-09-25 (direct real-evidence diff against real
-    completed Folder 048 and Folder 111 Animal Health reports, plus direct
+    completed Folder b65a8 and Folder 3da91 Animal Health reports, plus direct
     user confirmation "GBP is same as regular anions"): "Anion", not
     "Analyte" -- this was a real bug, not just an SOP-code gap."""
     svc = _FakeAnalysisService({1: "GBP"})
@@ -414,7 +414,7 @@ def test_can_build_sections_true_for_acetate_and_formate():
 
 
 def test_acetate_and_formate_merges_into_core_anions_panel_not_a_second_section():
-    """Confirmed real (2026-09-23, Folder 048 Water report): when a
+    """Confirmed real (2026-09-23, Folder b65a8 Water report): when a
     core Anions selection is ALSO requested (here "7 Anions"), Acetate and
     Formate do NOT get their own section -- they merge into the SAME
     alphabetized panel as the core anions. Only stand alone (the
@@ -599,7 +599,7 @@ def test_can_build_sections_true_for_moisture_karl_fischer():
 
 
 def test_sn2_iodine_titration_dispatches_with_real_title_and_footer():
-    """Confirmed real (S:\\Reports\\Customer 156, real "Ag-Sn Plating"/"SnAg"
+    """Confirmed real (S:\\Reports\\Customer d53ad, real "Ag-Sn Plating"/"SnAg"
     reports, one-time permission granted 2026-09-17)."""
     svc = _FakeAnalysisService({1: "Sn+2 Iodine Titration"})
     sections = orchestrator.build_sections(_sample((1,)), svc, _FakeElementService())
@@ -803,7 +803,7 @@ def test_additional_elements_alone_build_a_standalone_minimal_panel():
 
 
 def test_standalone_additional_elements_panel_comes_first_not_last():
-    """Confirmed real (2026-09-23, live production report, Customer 169): metals
+    """Confirmed real (2026-09-23, live production report, Customer 436f6): metals
     leads the sheet regardless of which column on the intake form the
     request came from. A real sample requested Silicon (col 7), Anions
     (col 8), and metals only via the free-text Additional Elements column
@@ -869,7 +869,7 @@ def test_can_build_sections_true_for_additional_elements_only():
 
 # ---------------------------------------------------------------------------
 # additional elements run by a different method get no limits (2026-10-01,
-# direct user confirmation: Customer 057's Organic Dilute and Shoot
+# direct user confirmation: Customer e6c40's Organic Dilute and Shoot
 # additional elements -- the limits on file belong to the main method)
 # ---------------------------------------------------------------------------
 

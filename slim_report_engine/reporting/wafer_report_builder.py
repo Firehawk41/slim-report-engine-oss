@@ -39,14 +39,14 @@ from slim_report_engine.reporting.section_builders import wafer_panel_builder
 
 _ATOMS_NOTE = "Results in units of atoms/cm2"
 # REAL, confirmed 2026-09-26 (direct real-evidence check, S:\Reports\
-# Customer 110 -- dozens of real completed wafer reports, 2017 through at
+# Customer abf1e -- dozens of real completed wafer reports, 2017 through at
 # least 2023, every single one using this exact text): the 2026-09-23
 # "correction" below (which removed this) was ITSELF wrong -- it was
-# checked against only ONE customer (Customer 156), who happens to always
+# checked against only ONE customer (Customer d53ad), who happens to always
 # select the PLAIN "atoms/cm^2" reporting unit, never this one. The real
 # intake form's "Reporting Unit" field has always offered both as
 # genuinely distinct options ("atoms/cm^2" and "atoms/cm^2 x 10^10" --
-# confirmed real, Customer 110's own real TR forms), and Customer 110 has
+# confirmed real, Customer abf1e's own real TR forms), and Customer abf1e has
 # consistently selected the x10^10 one on every real submission checked.
 # The real cell is rich text: "Results in units of 10" + superscript("10")
 # + " atoms/cm" + superscript("2") -- i.e. "10 to the power 10 atoms per
@@ -56,7 +56,7 @@ _ATOMS_NOTE = "Results in units of atoms/cm2"
 # -- not a guess at how a caret/exponent should render as plain text.
 _ATOMS_SCALED_NOTE = "Results in units of 1010 atoms/cm2"
 # The real, literal value TRSample.reporting_units holds for this
-# selection (confirmed real, Customer 110's 2023 TR form: samples with
+# selection (confirmed real, Customer abf1e's 2023 TR form: samples with
 # this unit selected have this exact string, verbatim, in the
 # "Reporting Unit" column).
 _ATOMS_SCALED_UNITS_VALUE = "atoms/cm^2 x 10^10"
@@ -64,7 +64,7 @@ _IONS_NOTE = "Results in units of ions/cm2"
 
 # Real superscript run structure for each atoms/cm2 note, confirmed
 # 2026-09-26 directly from a real completed report's own rich-text runs
-# (openpyxl CellRichText/TextBlock inspection, S:\Reports\Customer 110)
+# (openpyxl CellRichText/TextBlock inspection, S:\Reports\Customer abf1e)
 # -- see report_writer.py's _apply_superscript_runs, which turns these
 # into real Excel rich text at write time. Each tuple is (text,
 # is_superscript); concatenating the text segments in order must equal

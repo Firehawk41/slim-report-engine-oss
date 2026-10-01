@@ -35,7 +35,7 @@ def build_header_preamble(title: str, unit_override: str | None = None) -> Repor
     customer+chemical's own specs are on file in something other than
     ppb (see SpecificationService.get_unit_override) -- confirmed real
     (modReportCreator.bas's Get_Specs, direct VBA source check
-    2026-09-28; matches a real completed report, Customer 047's PG,
+    2026-09-28; matches a real completed report, Customer a359c's PG,
     "All data in units of ppm unless otherwise noted"). None (the
     default, every caller before 2026-09-28) keeps the standard ppb
     wording -- the overwhelming majority of real chemicals have no spec
@@ -78,7 +78,7 @@ def _simple_shape_max_columns(second_col_label: str = "", third_col_label: str =
     """The real column extent for a single/multi-parameter block (TOC/
     Alkalinity/Bacteria/Electrical/Misc Analysis/Titrations' Assay/KF/
     GC-FID/hand titrations) -- confirmed real gap (2026-09-25, direct
-    user correction, Customer 033's Assay/Density/pH sheet): the
+    user correction, Customer 55a6b's Assay/Density/pH sheet): the
     shared ReportRow default (DEFAULT_MAX_COLUMNS=6) was being used for
     the header row regardless of whether a shape has a real 2nd or 3rd
     results column, leaving a genuinely unlabeled but still blue-filled
@@ -165,7 +165,7 @@ def add_analyte_row_with_spec(
 
     is_ked: this specific element needs ICPMS-KEDS mode (added 2026-09-25,
     direct user correction). CORRECTED 2026-09-28 (direct user correction,
-    a real Folder 031 Z-report): the visible link back to the
+    a real Folder 3978d Z-report): the visible link back to the
     footer's "Note 1: ..." line is a bold-red "Note 1" marker in column 7
     (just past the panel's own bordered box), NOT bold-red styling on the
     element's own symbol cell -- see ReportRow.set_note.
@@ -195,7 +195,7 @@ def add_simple_header_row(
     always "Recovery", and there is never a third results column
     (no MDL/QL).
 
-    header_col1_label: confirmed real (S:\\Reports\\Customer 156's "Ag-Sn
+    header_col1_label: confirmed real (S:\\Reports\\Customer d53ad's "Ag-Sn
     Plating"/"SnAg" reports): the Sn+2/Free Acid/TS-SLG hand-titration
     assays put a section title in column 1 of the HEADER row itself
     (e.g. "Determination of Sn+"), unlike KF/GC-FID which leave it blank
@@ -292,7 +292,7 @@ def add_footer_row(
     previously dropped entirely during the port from VBA -- confirmed
     absent from this whole codebase via a full-text search -- not a
     conditional that just failed to fire. Text and style corrected
-    2026-09-28 (direct user correction, checked against 60+ real Cust002
+    2026-09-28 (direct user correction, checked against 60+ real Cust41a14
     Ventures Reports, not just the original one): the real text has no
     "mode" and no trailing period, and the line itself is bold red
     (style "NormalBoldRed"), not plain.

@@ -303,7 +303,7 @@ def build_sections(
     has_acetate_formate = "Acetate and Formate" in names_set
     include_total_si = "Total Silicon" in names_set or "Dissolved and Total Si" in names_set
     include_dissolved_si = "Dissolved Silicon" in names_set or "Dissolved and Total Si" in names_set
-    # Confirmed real (2026-09-23, Folder 048 evidence): Acetate/Formate
+    # Confirmed real (2026-09-23, Folder b65a8 evidence): Acetate/Formate
     # is NOT its own panel when a core Anions selection is ALSO requested
     # -- the real legacy report merges both into ONE alphabetized panel
     # (Acetate, Bromide, Chloride, ... Formate, ...). Only renders as its
@@ -419,7 +419,7 @@ def build_sections(
             sections.append(_ion_panel(name, "Anion", _maybe_alphabetize(analytes, request_type), ions_prep_text, date_of_analysis))
         elif name == "Cl":
             # Confirmed real (2026-09-17, direct user correction, real
-            # Customer 169 Water intake form): a standalone Chlorine/Chloride
+            # Customer 436f6 Water intake form): a standalone Chlorine/Chloride
             # selection -- same rendering as any other Anion panel, just
             # with one row. Same shape as the "NH4" cation case below.
             # No real evidence Acetate/Formate ever co-occurs with this
@@ -431,7 +431,7 @@ def build_sections(
             # anions, rendered exactly like any other Anion panel -- but
             # ONLY when no core Anions selection is also present to merge
             # into (see acetate_formate_merged comment above; confirmed
-            # real 2026-09-23 against a Folder 048 report that DOES
+            # real 2026-09-23 against a Folder b65a8 report that DOES
             # combine both).
             if not acetate_formate_merged:
                 sections.append(
@@ -449,7 +449,7 @@ def build_sections(
             sections.append(_ion_panel(name, "Cation", _maybe_alphabetize(ion_presets.cations_master(), request_type), ions_prep_text, date_of_analysis))
         elif name == "GBP":
             # category_label corrected 2026-09-25 (direct real-evidence
-            # diff against real completed Folder 048 and Folder 111 Animal
+            # diff against real completed Folder b65a8 and Folder 3da91 Animal
             # Health reports): "Anion", not "Analyte" -- matches direct
             # user confirmation the same day ("GBP is same as regular
             # anions") and every other real GBP table found.
@@ -529,7 +529,7 @@ def build_sections(
             # not a different method, just a different label for it.
             sections.append(titrations_section_builder.build_kf_water(name, date_of_analysis))
         elif name == "Sn+2 Iodine Titration":
-            # Confirmed real (S:\Reports\Customer 156's real "Ag-Sn Plating"/
+            # Confirmed real (S:\Reports\Customer d53ad's real "Ag-Sn Plating"/
             # "SnAg" reports) -- see titrations_section_builder.py's
             # DISPATCH STATUS note.
             sections.append(titrations_section_builder.build_sn2_iodine_titration(name, date_of_analysis))
@@ -548,7 +548,7 @@ def build_sections(
     if additional_element_names:
         prep_text = additional_elements_prep_text if additional_elements_prep_text is not None else metals_prep_text
         # A customer whose Additional Elements are run by a different
-        # method (Customer.additional_elements_prep -- e.g. Folder 092
+        # method (Customer.additional_elements_prep -- e.g. Folder 6c581
         # Houston's Organic Dilute and Shoot, by agreement) gets no limits
         # on those rows: the limits on file belong to the main method.
         # Direct user confirmation 2026-10-01; the chemist used to delete
@@ -563,7 +563,7 @@ def build_sections(
             if different_method:
                 _exclude_limits(metals_panel_section.rows[rows_before:])
         else:
-            # Confirmed real (2026-09-23, live production report, Customer 169):
+            # Confirmed real (2026-09-23, live production report, Customer 436f6):
             # metals leads the sheet regardless of which column on the
             # intake form the request came from -- an appended-at-the-end
             # additional-elements-only panel put it AFTER Silicon and
@@ -663,7 +663,7 @@ def apply_limits(sections: list[ReportSection], limits_by_kind: dict[str, dict[s
     Compare Text), for both its specification and warning-limit tables.
     So limits print on whichever panel lists the analyte: metals, silicon
     ("Si"), anion ("Cl")..., not only the metals panel. Confirmed real:
-    the legacy Customer 169 Water report prints Na 5 (metals), Si 3 (silicon) and
+    the legacy Customer 436f6 Water report prints Na 5 (metals), Si 3 (silicon) and
     Cl 5 (anion). Where a row matches in both columns, column 3 wins, as
     in the macro's left-to-right scan.
 

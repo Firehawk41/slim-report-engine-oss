@@ -17,7 +17,7 @@ def test_anions_4_is_chloride_sulfate_nitrate_phosphate():
 
 def test_acetate_and_formate_symbols():
     # Confirmed real 2026-09-25 (direct real-evidence diff against a real
-    # completed Folder 048 report): Formate's symbol is "HCO2", not
+    # completed Folder b65a8 report): Formate's symbol is "HCO2", not
     # "CHO2" -- same ion, different notation, and the real template
     # consistently uses "HCO2".
     assert _symbols(ion_presets.acetate_and_formate()) == ["C2H3O2", "HCO2"]

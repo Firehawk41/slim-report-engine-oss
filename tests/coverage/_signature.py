@@ -52,7 +52,7 @@ def sample_signature(sample: TRSample, request_type: str, analysis_service: Anal
     )
 
 
-def submission_Folder 071(submission: TRSubmission, analysis_service: AnalysisService) -> list[SampleSignature]:
+def submission_Folder 0316e(submission: TRSubmission, analysis_service: AnalysisService) -> list[SampleSignature]:
     """One signature per sample -- a single TR file can (and often does,
     e.g. the dummy "test all analyses" TR) mix several distinct shapes
     in one submission."""

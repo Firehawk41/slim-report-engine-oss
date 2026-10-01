@@ -180,7 +180,7 @@ def _add_common_header_rows(
     section.add_row(units_row)
 
     # row_height bumped 60.0 -> 95.0 (2026-09-25, direct user correction,
-    # Cust082): the real sample-ID string here is often much longer than the
+    # Custc4ea4): the real sample-ID string here is often much longer than the
     # generic metals panel's own equivalent (it carries the wafer size AND
     # the customer name AND the per-slot label), and this row's narrow
     # column width means it wraps onto several lines -- 50.25pt wasn't

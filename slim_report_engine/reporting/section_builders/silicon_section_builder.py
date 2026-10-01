@@ -93,7 +93,7 @@ def build_silicon(
             section,
             "* Colloidal silica is calculated as the difference between Total Silica and Dissolved Silica",
         )
-        # Confirmed real gap (2026-09-25, direct user correction, Folder 111):
+        # Confirmed real gap (2026-09-25, direct user correction, Folder 3da91):
         # unlike add_footer_row (every other section's own closing row),
         # add_note_row never adds its own trailing blank spacer -- since
         # this note row is genuinely the LAST row of the section whenever
