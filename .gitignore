@@ -1,0 +1,30 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# Local secrets/config -- never commit real DB paths or credentials
+.env
+*.env.local
+config.local.*
+
+# Raw production data (Access DB, exports, dumps) -- lives in data/ locally
+# only, never in git history, even here: it's not code, it changes
+# independently of the codebase, and git isn't the right tool for it.
+data/
+*.accdb
+*.mdb
+real_data/
+
+# Editor/OS cruft
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# demo/demo.py output
+demo_out/

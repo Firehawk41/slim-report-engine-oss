@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "slim-report-engine"
+version = "0.23.0"
+description = "Generates blank lab-report worksheets from Testing Request submissions."
+requires-python = ">=3.11"
+dependencies = [
+    "slim-domain",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[project.scripts]
+slim-report-engine = "slim_report_engine.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["slim_report_engine*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
