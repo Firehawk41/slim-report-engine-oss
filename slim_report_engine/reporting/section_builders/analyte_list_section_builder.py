@@ -281,7 +281,9 @@ def _add_summary_rows(section: ReportSection, summary_label: str, first_data_row
     section.add_row(avg_row)
 
     total_row_index = section.row_count + 1
-    total_row = ReportRow(style_name="SummaryRow")
+    # Column 5 has no total, so it's left out of the box, as in legacy
+    # (direct user correction 2026-10-02).
+    total_row = ReportRow(style_name="SummaryRow", blank_columns=frozenset({5}))
     total_row.set_value(2, f"TOTAL / {summary_label}")
     for col in (4, 6):
         _set_range_formula(total_row, col, "SUM", first_data_row, last_data_row, total_row_index)

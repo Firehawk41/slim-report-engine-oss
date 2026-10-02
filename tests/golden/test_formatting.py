@@ -11,6 +11,7 @@ Testing Requests the golden pairs use:
   - Wafer: the spacer column between the last sample and MDL/QL carries
     no formatting on any row, the sample-ID row stops at the last sample,
     and every sample column is as wide as D so the sample ID can be read.
+  - TOTAL rows: the untotalled column between the two sums is unboxed.
 """
 
 from __future__ import annotations
@@ -170,6 +171,28 @@ def test_wafer_sample_columns_are_wide_enough_to_read(generated, name: str) -> N
             for col in range(4, mdl_col - 1):
                 letter = ws.cell(1, col).column_letter
                 assert ws.column_dimensions[letter].width >= d_width, f"{ws.title} column {letter}"
+
+
+# --- Summary rows ---
+
+
+@pytest.mark.parametrize("name", ["dummy_tr_water", "Customer 98168_ipa_warning_limits"])
+def test_total_row_leaves_the_untotalled_column_unboxed(generated, name: str) -> None:
+    """TOTAL sums the result and MDL columns; the column between them has
+    no total and no box (as in legacy). Customer 98168_ipa_warning_limits checks
+    the same holds when limit columns shift the table right."""
+    checked = 0
+    for ws in _report_sheets(generated(name)):
+        for row in ws.iter_rows():
+            for cell in row:
+                if isinstance(cell.value, str) and cell.value.startswith("TOTAL / "):
+                    sums = [c for c in range(1, ws.max_column + 1)
+                            if isinstance(ws.cell(cell.row, c).value, str) and ws.cell(cell.row, c).value.startswith("=SUM")]
+                    assert len(sums) == 2, f"{ws.title} row {cell.row}: {sums}"
+                    gap = ws.cell(cell.row, sums[0] + 1)
+                    assert not _is_boxed(gap), f"{ws.title}!{gap.coordinate} is boxed"
+                    checked += 1
+    assert checked, "no TOTAL row found"
 
 
 def test_formatting_helpers_detect_boxed_cells(tmp_path: Path) -> None:
