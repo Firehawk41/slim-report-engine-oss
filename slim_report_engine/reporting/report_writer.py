@@ -480,6 +480,8 @@ def write_row(ws: Worksheet, row: ReportRow, row_index: int, limit_columns: Limi
         )
 
     apply_style(_ShiftedSheet(ws, limit_columns), row_index, min_col=1, max_col=row.max_columns, style_name=row.style_name)
+    for col_index, style_name in row.cell_styles.items():
+        apply_style(_ShiftedSheet(ws, limit_columns), row_index, min_col=col_index, max_col=col_index, style_name=style_name)
     # Extra limit columns take column 1's formatting, as an inserted Excel
     # column takes the formatting of the column to its left.
     source = ws.cell(row=row_index, column=1)
@@ -499,11 +501,12 @@ def write_row(ws: Worksheet, row: ReportRow, row_index: int, limit_columns: Limi
         if row.is_limit_header and label:
             ws.cell(row=row_index, column=position).value = label
 
+    # No border or fill -- the cell is outside the table. Its font stays,
+    # so any text there (e.g. a note) keeps the row's typeface.
     for col_index in row.blank_columns:
         cell = ws.cell(row=row_index, column=phys(col_index))
         cell.border = Border()
         cell.fill = PatternFill(fill_type=None)
-        cell.font = Font()
 
     # After apply_style, so the base font to match (Arial/size/bold) is
     # whatever this row's own style already put there -- not hardcoded to

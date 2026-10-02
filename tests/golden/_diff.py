@@ -280,6 +280,15 @@ def _same_limits(a: list, b: list) -> bool:
     return True
 
 
+def _is_boxed(cell) -> bool:
+    """True if the cell is drawn as part of a table: any border or fill."""
+    b = cell.border
+    bordered = b is not None and any(
+        side is not None and side.style for side in (b.left, b.right, b.top, b.bottom)
+    )
+    return bordered or bool(cell.fill is not None and cell.fill.fill_type)
+
+
 def diff_workbooks(
     new_path: str,
     legacy_path: str,
@@ -333,6 +342,19 @@ def diff_workbooks(
                     continue
 
                 new_style = _style_of(cell)
+                # The reverse direction (added 2026-10-02 -- the SX5 "Data =<
+                # MDL" legend lost its blue and nothing noticed): text legacy
+                # ALWAYS colors must not come out uncolored. Color only:
+                # color carries meaning (blue = at or below MDL, red = out of
+                # spec), while legacy's bold varies by template.
+                if not new_style.notably_colored and all(style.notably_colored for _coord, style in hits):
+                    mismatches.append(
+                        Mismatch(
+                            sheet_name, cell.coordinate, text, "style_mismatch",
+                            f"NEW is uncolored, legacy always colors this text "
+                            f"(legacy styles found: {[(s.bold, s.color_repr) for _c, s in hits]})",
+                        )
+                    )
                 if new_style.bold or new_style.notably_colored:
                     if not any(
                         style.bold == new_style.bold and style.notably_colored == new_style.notably_colored

@@ -115,6 +115,10 @@ def _add_title_and_notes(
     notes_row = ReportRow(style_name="Normal")
     notes_row.set_value(1, notes_text)
     notes_row.set_value(notes_column, notes_value)
+    # Confirmed real (legacy SX5 reports, direct user correction
+    # 2026-10-02): the "Data =< MDL" legend is blue -- it shows what blue
+    # font means. The units note beside it stays plain.
+    notes_row.set_cell_style(1, "NormalBlue")
     section.add_row(notes_row)
 
 
@@ -122,7 +126,10 @@ def _add_qc_row_and_header(section: ReportSection, qc_code: str) -> None:
     # Confirmed real (NH4OH template): unlike the generic metals panel,
     # SX5's QC row does NOT merge its echo cell -- column 4 alone carries
     # the sample-ID string, no add_merge call here.
-    qc_row = ReportRow(style_name="SampleIdEchoWide", row_height=43.5)
+    # Confirmed real (legacy SX5 reports, direct user correction
+    # 2026-10-02): the sample-ID header is ONE column (D) -- Recovery and
+    # MDL have no cell above them.
+    qc_row = ReportRow(style_name="SampleIdEchoWide", row_height=43.5, blank_columns=frozenset({5, 6}))
     qc_row.set_value(1, qc_code)
     qc_row.set_value(2, "Sample #:")
     # Column 4 (the sample-ID stamp) is intentionally left blank -- see

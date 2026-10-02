@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "slim-report-engine"
-version = "0.23.0"
+version = "0.24.0"
 description = "Generates blank lab-report worksheets from Testing Request submissions."
 requires-python = ">=3.11"
 dependencies = [

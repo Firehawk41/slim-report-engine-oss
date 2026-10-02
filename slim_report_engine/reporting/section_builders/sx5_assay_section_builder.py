@@ -27,6 +27,11 @@ from slim_report_engine.reporting.report_row import ReportRow
 from slim_report_engine.reporting.report_section import ReportSection
 
 
+# The Assay table is four columns wide (spec, parameter, result, STDV) --
+# confirmed real (legacy SX5 reports, 2026-10-02): nothing is boxed past D.
+_ASSAY_COLUMNS = 4
+
+
 def build_assay(
     id: str,
     chemical_label: str,
@@ -57,25 +62,29 @@ def build_assay(
     section.add_row(row_builders.blank_row())
 
     if note_text:
-        row_builders.add_note_row(section, note_text)
+        # Confirmed real (legacy WX-2000 reports): the legend is bold red --
+        # it shows what bold red font means.
+        note_row = ReportRow(style_name="NormalBoldRed")
+        note_row.set_value(1, note_text)
+        section.add_row(note_row)
 
     # Confirmed real (CSLX001 template): no merge on this row -- the
     # Assay shape's Sample # value sits in a single unmerged cell.
-    sample_row = ReportRow(style_name="SampleIdEchoAssay", row_height=37.5)
+    sample_row = ReportRow(style_name="SampleIdEchoAssay", row_height=37.5, max_columns=_ASSAY_COLUMNS)
     sample_row.set_value(2, "Sample #")
     # Column 3 (the sample-ID stamp) is intentionally left blank -- an
     # orchestration decision, same as sx5_element_panel_builder.
     section.add_row(sample_row)
 
     header_style = "ColumnHeaderAssay" if bold_results_header else "ColumnHeaderAssayPlain"
-    header_row = ReportRow(style_name=header_style, row_height=24.75)
+    header_row = ReportRow(style_name=header_style, row_height=24.75, max_columns=_ASSAY_COLUMNS)
     header_row.set_value(1, "Current Specifications")
     header_row.set_value(2, "Parameter")
     header_row.set_value(3, result_col_label)
     header_row.set_value(4, "STDV")
     section.add_row(header_row)
 
-    data_row = ReportRow(style_name="DataLabel", row_height=20.25)
+    data_row = ReportRow(style_name="DataLabel", row_height=20.25, max_columns=_ASSAY_COLUMNS)
     data_row.set_value(1, spec_range)
     data_row.set_value(2, parameter_label)
     section.add_row(data_row)
@@ -99,14 +108,16 @@ def build_embedded_assay(id: str, spec_range: str, note_text: str = "") -> Repor
     """
     section = ReportSection(id)
 
-    header_row = ReportRow(style_name="ColumnHeaderAssay")
+    header_row = ReportRow(style_name="ColumnHeaderAssay", max_columns=_ASSAY_COLUMNS)
     header_row.set_value(1, "Current Specifications")
     header_row.set_value(2, "Parameter")
     header_row.set_value(3, "% HF")
     header_row.set_value(4, "STDV")
     section.add_row(header_row)
 
-    data_row = ReportRow(style_name="DataLabel")
+    # Boxed A-D like the table above it (confirmed real, legacy SX5-S
+    # reports); column 5 only carries North's note text, unboxed.
+    data_row = ReportRow(style_name="DataLabel", blank_columns=frozenset({5, 6}))
     data_row.set_value(1, spec_range)
     data_row.set_value(2, "ASSAY")
     if note_text:

@@ -142,14 +142,20 @@ def add_header_rows(
     section.add_row(header_row)
 
 
-def add_analyte_row(section: ReportSection, name: str, symbol: str, max_columns: int | None = None) -> None:
+def add_analyte_row(
+    section: ReportSection, name: str, symbol: str, max_columns: int | None = None,
+    blank_columns: frozenset[int] = frozenset(),
+) -> None:
     """max_columns: override the row's style-application width -- confirmed
     real (Wafers Report Template.xlsx): Wafer's own analyte rows border/fill
     all the way to column 19 (its MAX_SAMPLE_COLUMNS, matching its header
     rows), not the standard family's column 6 -- wafer_panel_builder.py
     passes it explicitly; every other caller leaves this at the default.
+    blank_columns: see ReportRow -- Wafer's spacer column.
     """
-    row = ReportRow(style_name="DataLabel", **({"max_columns": max_columns} if max_columns else {}))
+    row = ReportRow(
+        style_name="DataLabel", blank_columns=blank_columns, **({"max_columns": max_columns} if max_columns else {})
+    )
     row.set_value(2, name)
     row.set_value(3, symbol)
     section.add_row(row)

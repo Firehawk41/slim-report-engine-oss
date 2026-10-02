@@ -96,13 +96,19 @@ def build_element_panel(
         element = element_service.get_by_symbol(symbol)
         if element is None:
             raise ValueError(f"unknown element symbol: {symbol!r}")
-        row_builders.add_analyte_row(section, element.name, element.symbol, max_columns=real_max_columns)
+        row_builders.add_analyte_row(
+            section, element.name, element.symbol, max_columns=real_max_columns,
+            blank_columns=_spacer(len(slot_sample_ids)),
+        )
 
     for name in additional_element_names or []:
         element = element_service.get_by_name(name.strip())
         if element is None:
             raise ValueError(f"unknown additional element name: {name!r}")
-        row_builders.add_analyte_row(section, element.name, element.symbol, max_columns=real_max_columns)
+        row_builders.add_analyte_row(
+            section, element.name, element.symbol, max_columns=real_max_columns,
+            blank_columns=_spacer(len(slot_sample_ids)),
+        )
 
     _add_footer_rows(
         section, "Analysis by LP-ICPMS.", include_date_of_analysis=True,
@@ -135,10 +141,20 @@ def build_anion_panel(
     )
 
     for anion in anions:
-        row_builders.add_analyte_row(section, anion.name, anion.symbol, max_columns=real_max_columns)
+        row_builders.add_analyte_row(
+            section, anion.name, anion.symbol, max_columns=real_max_columns,
+            blank_columns=_spacer(len(slot_sample_ids)),
+        )
 
     _add_footer_rows(section, "Analysis by LP-IC.", include_date_of_analysis=False, max_columns=real_max_columns)
     return section
+
+
+def _spacer(slot_count: int) -> frozenset[int]:
+    """The one deliberate empty column between the last sample column and
+    the MDL/QL column: no border, fill or font on ANY row (direct user
+    correction 2026-10-02 -- it was formatted as if part of the table)."""
+    return frozenset({5 + slot_count})
 
 
 def _real_max_columns(sample_count: int) -> int:
@@ -185,7 +201,12 @@ def _add_common_header_rows(
     # the customer name AND the per-slot label), and this row's narrow
     # column width means it wraps onto several lines -- 50.25pt wasn't
     # tall enough to show all of them.
-    sample_id_row = ReportRow(style_name="SampleIdEchoWide", max_columns=max_columns, row_height=95.0)
+    # The sample-ID row stops at the last sample column, as in the real
+    # reports: neither the spacer nor the MDL/QL column has a cell here.
+    sample_id_row = ReportRow(
+        style_name="SampleIdEchoWide", max_columns=max_columns, row_height=95.0,
+        blank_columns=frozenset(c for c in (5 + len(slot_sample_ids), 6 + len(slot_sample_ids)) if c <= max_columns),
+    )
     sample_id_row.set_value(1, "Specification")
     sample_id_row.set_value(2, "Sample #:")
     # Confirmed real ("36 Elements" template): B6:C6 merges the "Sample #:"
@@ -206,11 +227,9 @@ def _add_common_header_rows(
     # every other header cell -- looked like just another unlabeled
     # colored cell, not an intentional gap. Marked blank here so it
     # actually reads as one.
-    gap_column = 5 + sample_count
-
     header_row = ReportRow(
         style_name="ColumnHeader", max_columns=max_columns, row_height=25.5,
-        blank_columns=frozenset({gap_column}),
+        blank_columns=_spacer(sample_count),
     )
     header_row.set_value(2, category_label)
     # Confirmed real: B7:C7 also merges the "Element"/"Anion" label.

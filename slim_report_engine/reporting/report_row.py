@@ -46,7 +46,7 @@ class ReportRow:
         whatever height it already has.
 
         blank_columns: column indices within [1, max_columns] that should
-        be left with NO border/fill/font -- i.e. genuinely blank, not just
+        be left with NO border or fill -- outside the table, not just
         empty-valued -- even though this row's own style would otherwise
         apply uniformly across the whole range. Added 2026-09-25 (direct
         user correction, Wafer's multi-sample-column header row): the
@@ -64,6 +64,7 @@ class ReportRow:
         self._merges: list[tuple[int, int]] = []
         self._superscript_runs: dict[int, tuple[tuple[str, bool], ...]] = {}
         self._notes: dict[int, str] = {}
+        self._cell_styles: dict[int, str] = {}
         self._limits: dict[str, float] = {}
         # True on a panel's column-header row: the writer puts each limit
         # column's header label (e.g. "Action Limit") in its limit columns.
@@ -98,6 +99,17 @@ class ReportRow:
     @property
     def superscript_runs(self) -> dict[int, tuple[tuple[str, bool], ...]]:
         return dict(self._superscript_runs)
+
+    def set_cell_style(self, col_index: int, style_name: str) -> None:
+        """Styles one cell differently from the rest of its row -- e.g. the
+        SX5 notes row, whose "Data =< MDL" legend is blue (it shows what
+        blue font means) while the units note beside it is plain black."""
+        self._require_valid_column(col_index)
+        self._cell_styles[col_index] = style_name
+
+    @property
+    def cell_styles(self) -> dict[int, str]:
+        return dict(self._cell_styles)
 
     def set_note(self, col_index: int, text: str) -> None:
         """Marks a bold-red footnote marker (e.g. "Note 1") at col_index,
