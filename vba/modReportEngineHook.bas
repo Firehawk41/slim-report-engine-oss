@@ -2,18 +2,20 @@ Attribute VB_Name = "modReportEngineHook"
 Option Explicit
 ' MacroName: modReportEngineHook
 ' Executable: True
-' Version: 1.3.0
+' Version: 1.3.1
 ' Author: JT
 ' Created: 2026-09-04
-' LastModified: 2026-09-29
+' LastModified: 2026-10-02
 ' Description: HTTP invocation hook for report generation -- POSTs the
 '              active Testing Request workbook's shared-drive path to
 '              the Slim-LIMS report-generation API and reacts to the
 '              result. Falls back to Blank_Report_Creator
 '              (modReportCreator.bas) only on a timeout/connection
 '              failure, never on any server response.
-' DependsOn: clsLoggingSystem, modReportCreator
+' DependsOn: clsLoggingSystem, modReportCreator, modConfig
 ' ChangeLog:
+'   1.3.1 - 2026-10-02  - Server URL and API key moved to modConfig (REPORT_SERVER_URL / REPORT_API_KEY),
+'                          so this module imports unchanged and holds no secret.
 '   1.3.0 - 2026-09-29  - Success (200) now logs "the big gates the code
 '                          successfully clears": customer/type/sample
 '                          count and per-phase timing (parse/build/write),
@@ -151,11 +153,8 @@ Option Explicit
 ' that entirely. Tradeoff: this is DHCP-assigned, not a static reservation
 ' -- confirm it still matches before deploying, and again if it ever
 ' silently stops connecting (the router may have reassigned it).
-Private Const SERVER_URL As String = "http://192.0.2.10:5000/generate-report"
+' **** now found in modConfig.REPORT_SERVER_URL ***
 
-' PLACEHOLDER -- replace with the real key (Slim-LIMS's .env API_KEY)
-' only in the deployed workbook copy. Never commit the real value here.
-Private Const API_KEY As String = "REPLACE_WITH_REAL_API_KEY"
 
 ' This module has no package-metadata version the way the Python side
 ' does (slim-report-engine/slim-domain versions are already logged
@@ -166,7 +165,7 @@ Private Const API_KEY As String = "REPLACE_WITH_REAL_API_KEY"
 ' tied back to which version of THIS hook sent it -- relevant because
 ' different lab machines could plausibly be running different deployed
 ' copies if one hasn't been updated yet.
-Private Const HOOK_VERSION As String = "1.3.0"
+Private Const HOOK_VERSION As String = "1.3.1"
 
 ' Milliseconds: resolve, connect, send, receive. Short enough that a
 ' genuinely unreachable server falls back to the legacy macro quickly
@@ -259,7 +258,7 @@ Private Sub AttemptGenerateReport(ByVal targetWorkbook As Workbook, ByVal inputP
     Dim startTime As Single
     Dim elapsedSeconds As String
 
-    Call Logger.LogMessage("GenerateReport", LogLevelEnum.LogInfo, "Requesting report for " & inputPath & " from " & SERVER_URL & " (hook v" & HOOK_VERSION & ")")
+    Call Logger.LogMessage("GenerateReport", LogLevelEnum.LogInfo, "Requesting report for " & inputPath & " from " & modConfig.REPORT_SERVER_URL & " (hook v" & HOOK_VERSION & ")")
 
     startTime = Timer
     requestSucceeded = CallReportServer(inputPath, statusCode, responseBody, Logger)
@@ -412,11 +411,11 @@ Private Sub AttemptGenerateReport(ByVal targetWorkbook As Workbook, ByVal inputP
 
         Case 401
             ' A live server rejected the API key -- a configuration
-            ' mismatch (this module's API_KEY vs. Slim-LIMS's .env), not
+            ' mismatch (this module's modConfig.REPORT_API_KEY vs. Slim-LIMS's .env), not
             ' a data or connectivity problem. Does NOT fall back to
             ' Blank_Report_Creator: the server IS reachable, retrying
             ' against a different data source wouldn't fix a bad key.
-            Call Logger.LogMessage("GenerateReport", LogLevelEnum.LogError, "Authentication rejected (401) -- API_KEY mismatch with the server.")
+            Call Logger.LogMessage("GenerateReport", LogLevelEnum.LogError, "Authentication rejected (401) -- modConfig.REPORT_API_KEY mismatch with the server.")
             MsgBox "The report server rejected this request's API key." & vbCrLf & _
                    "Contact IT/support -- this is a configuration issue, not a data problem.", _
                    vbCritical, "Report Generation Failed"
@@ -621,11 +620,11 @@ Private Function WaitForResolution(ByVal token As String, ByRef Logger As clsLog
 End Function
 
 
-' Derived from SERVER_URL (strips the "generate-report" endpoint name) so
-' the status-poll URL always matches whatever host/port SERVER_URL points
+' Derived from modConfig.REPORT_SERVER_URL (strips the "generate-report" endpoint name) so
+' the status-poll URL always matches whatever host/port modConfig.REPORT_SERVER_URL points
 ' at -- one constant to keep in sync, not two.
 Private Function ServerBase() As String
-    ServerBase = Left$(SERVER_URL, Len(SERVER_URL) - Len("generate-report"))
+    ServerBase = Left$(modConfig.REPORT_SERVER_URL, Len(modConfig.REPORT_SERVER_URL) - Len("generate-report"))
 End Function
 
 
@@ -696,9 +695,9 @@ Private Function CallReportServer( _
 
     requestBody = "{""input_path"": """ & EscapeJsonString(inputPath) & """, ""hook_version"": """ & EscapeJsonString(HOOK_VERSION) & """}"
 
-    http.Open "POST", SERVER_URL, False
+    http.Open "POST", modConfig.REPORT_SERVER_URL, False
     http.SetRequestHeader "Content-Type", "application/json"
-    http.SetRequestHeader "X-API-Key", API_KEY
+    http.SetRequestHeader "X-API-Key", modConfig.REPORT_API_KEY
     http.Send requestBody
 
     statusCode = http.Status
@@ -708,7 +707,7 @@ Private Function CallReportServer( _
 
 ConnectionFailed:
     Call Logger.LogMessage("CallReportServer", LogLevelEnum.LogWarning, _
-        "WinHTTP error " & Err.Number & ": " & Err.Description & " (URL: " & SERVER_URL & ")")
+        "WinHTTP error " & Err.Number & ": " & Err.Description & " (URL: " & modConfig.REPORT_SERVER_URL & ")")
     CallReportServer = False
 
 End Function
