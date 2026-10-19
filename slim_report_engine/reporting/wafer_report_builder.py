@@ -102,9 +102,6 @@ class WaferReportResult:
     # to stamp it (submission_report_builder.py's _processing_time_stamp)
     # without this module needing to know about report_writer styling.
     processing_time: ProcessingTime
-    # Process blank + slot samples, i.e. how many sample columns the sheet
-    # has (D onward) -- sets their widths (column_widths.wafer).
-    sample_count: int = 1
 
 
 def build_wafer_sheet(
@@ -181,7 +178,6 @@ def build_wafer_sheet(
         sheet_title=f"{wafer_size} Wafers",
         apply_atoms_superscript_quirk=(reporting_units in ("atoms/cm^2", _ATOMS_SCALED_UNITS_VALUE)),
         processing_time=processing_time,
-        sample_count=1 + len(slot_ids),
     )
 
 

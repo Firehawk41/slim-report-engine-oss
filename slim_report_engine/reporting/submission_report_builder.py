@@ -255,7 +255,7 @@ def _build_wafer_sheets(
                 name=_sanitize_sheet_name(tab_name),
                 sections=(result.section,),
                 header_title=result.sheet_title,
-                column_widths=column_widths.wafer(result.sample_count),
+                column_widths=column_widths.WAFER,
                 title_cell_stamp=("A1", result.sheet_title),
                 zoom=95,
                 processing_time_stamp=_processing_time_stamp(result.processing_time, "D1", 12),
