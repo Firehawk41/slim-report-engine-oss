@@ -7,7 +7,7 @@ code path).
 
 Creates demo_out/demo.db, demo_out/requests/*.xlsx and
 demo_out/reports/*.xlsx. Customers are "A".."Z"; chemicals are
-"Chemical 01".."Chemical 05" plus "Water". A few customers show specific
+IPA, HNO3, Acetone, H2O2 and PGMEA, plus "Water". A few customers show specific
 features:
 
   A  no limits on file             B  specification limits
@@ -58,11 +58,11 @@ _ELEMENTS = (
 # name -> (metals prep, ions prep)
 _CHEMICALS = {
     "Water": ("Dilute and Shoot", ""),
-    "Chemical 01": ("Evaporation", ""),
-    "Chemical 02": ("Dilute and Shoot", ""),
-    "Chemical 03": ("Evaporation", "Evaporation"),
-    "Chemical 04": ("Dilute and Shoot", ""),
-    "Chemical 05": ("Evaporation", ""),
+    "IPA": ("Evaporation", ""),
+    "HNO3": ("Dilute and Shoot", ""),
+    "Acetone": ("Evaporation", "Evaporation"),
+    "H2O2": ("Dilute and Shoot", ""),
+    "PGMEA": ("Evaporation", ""),
 }
 _SITE_GROUP = {"H": "G", "I": "G"}  # site -> group
 
@@ -84,7 +84,7 @@ def seed(db_url: str) -> None:
                                ions_prep=ions_prep, metals_instrument="ICPMS", created_by="DEMO"))
             s.add(_FormChemicalRow(form_name=name, chemical_id=i, created_by="DEMO"))
             chem_ids[name] = i
-        s.add(_KEDElementRow(chemical_id=chem_ids["Chemical 02"], element_id=26))  # Fe flagged KED
+        s.add(_KEDElementRow(chemical_id=chem_ids["HNO3"], element_id=26))  # Fe flagged KED
         cust_ids = {}
         for i, letter in enumerate(string.ascii_uppercase, start=1):
             s.add(_CustomerRow(
@@ -113,12 +113,12 @@ def seed(db_url: str) -> None:
                 ))
                 next_id += 1
 
-        limits("B", "Chemical 01", "specification", "Specification", {"Al": 0.5, "Fe": 0.3, "Na": 1.0, "Zn": 0.2})
-        limits("C", "Chemical 02", "specification", "Action Limit", {"Al": 0.4, "Fe": 0.2, "Ca": 0.75})
-        limits("C", "Chemical 02", "warning_limit", "Warning Limit", {"Al": 0.3, "Fe": 0.1, "Ca": 0.5})
-        limits("E", "Chemical 01", "specification", "Specification", {"Sb": 0.1, "As": 0.1, "B": 1.0})
+        limits("B", "IPA", "specification", "Specification", {"Al": 0.5, "Fe": 0.3, "Na": 1.0, "Zn": 0.2})
+        limits("C", "HNO3", "specification", "Action Limit", {"Al": 0.4, "Fe": 0.2, "Ca": 0.75})
+        limits("C", "HNO3", "warning_limit", "Warning Limit", {"Al": 0.3, "Fe": 0.1, "Ca": 0.5})
+        limits("E", "IPA", "specification", "Specification", {"Sb": 0.1, "As": 0.1, "B": 1.0})
         limits("F", "Water", "specification", "Specification", {"Na": 5.0, "Si": 3.0, "Cl": 5.0})
-        limits("G", "Chemical 03", "specification", "Specification", {"Al": 0.2, "Cu": 0.1, "Ni": 0.1})
+        limits("G", "Acetone", "specification", "Specification", {"Al": 0.2, "Cu": 0.1, "Ni": 0.1})
         s.commit()
 
 
@@ -178,13 +178,13 @@ def write_request(req: DemoRequest, path: Path) -> Path:
 
 
 DEMO_REQUESTS = {
-    "A plain": DemoRequest("A", "Chemical", [DemoSample("A-1", ["36 Elements", "5 Anions"], "Chemical 01")]),
-    "B limits": DemoRequest("B", "Chemical", [DemoSample("B-1", ["36 Elements"], "Chemical 01", processing_time="Same Day RUSH")]),
-    "C warning limits": DemoRequest("C", "Chemical", [DemoSample("C-1", ["36 Elements"], "Chemical 02")]),
-    "E other method": DemoRequest("E", "Chemical", [DemoSample("E-1", ["36 Elements"], "Chemical 01", "Sb, As, B")]),
+    "A plain": DemoRequest("A", "Chemical", [DemoSample("A-1", ["36 Elements", "5 Anions"], "IPA")]),
+    "B limits": DemoRequest("B", "Chemical", [DemoSample("B-1", ["36 Elements"], "IPA", processing_time="Same Day RUSH")]),
+    "C warning limits": DemoRequest("C", "Chemical", [DemoSample("C-1", ["36 Elements"], "HNO3")]),
+    "E other method": DemoRequest("E", "Chemical", [DemoSample("E-1", ["36 Elements"], "IPA", "Sb, As, B")]),
     "F water": DemoRequest("F", "Water", [DemoSample("F-1", ["Anions", "Total Silicon"], additional_elements="Na"),
                                           DemoSample("F-2", ["TOC", "pH", "Conductivity"])]),
-    "H group site": DemoRequest("H", "Chemical", [DemoSample("H-1", ["36 Elements"], "Chemical 03")]),
+    "H group site": DemoRequest("H", "Chemical", [DemoSample("H-1", ["36 Elements"], "Acetone")]),
 }
 
 
