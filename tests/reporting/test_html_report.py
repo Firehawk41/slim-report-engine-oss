@@ -1,7 +1,12 @@
 """The HTML report: the template's own sections, filled with results under the template's columns."""
 
 from slim_report_engine.reporting import row_builders
-from slim_report_engine.reporting.html_report import ResultCell, render_html
+from slim_report_engine.reporting.html_report import (
+    ResultCell,
+    Signature,
+    render_html,
+    render_signature,
+)
 from slim_report_engine.reporting.report_row import ReportRow
 from slim_report_engine.reporting.report_section import ReportSection
 from slim_report_engine.reporting.submission_report_builder import OutputSheet
@@ -61,3 +66,11 @@ def test_rendering_is_deterministic():
     sheets = [_sheet("IPA", _panel("36 Elements"))]
     results = [{("36 Elements", "Cu"): ResultCell("10.100")}]
     assert render_html(sheets, results) == render_html(sheets, results)
+
+
+def test_the_signature_block_names_the_signatory_and_ends_the_report():
+    block = render_signature(Signature("Sue <Example>", "Laboratory Supervisor", "2026-11-02"))
+    assert "Authorised by" in block and "Laboratory Supervisor" in block and "2026-11-02" in block
+    assert "Sue &lt;Example&gt;" in block and "<Example>" not in block  # escaped
+    assert block.endswith('<p class="slim-report__end">End of report</p></footer>')
+    assert "style=" not in block and "<script" not in block  # strict CSP: classes only

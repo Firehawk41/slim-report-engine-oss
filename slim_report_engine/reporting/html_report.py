@@ -13,6 +13,10 @@ section. Cells go under the column headers the template already has: Results / R
 and MDL or QL; a column the template doesn't have (an assay's STDEV) stays blank.
 
 The output is deterministic -- no timestamps -- so its hash identifies what was issued.
+
+`render_signature` is the template's signature block (ISO 17025 §7.8.2.1: who authorised the report).
+The host puts it last, after anything it adds, so it marks the end of the report. The date is the
+caller's (the day of issue), never read from a clock here.
 """
 
 from __future__ import annotations
@@ -32,6 +36,13 @@ class ResultCell:
     ql: str = ""
     recovery: str = ""
     below_mdl: bool = False  # the template prints these in blue
+
+
+@dataclass(frozen=True)
+class Signature:
+    name: str  # the signatory, as printed: "Sue Example"
+    title: str  # their position: "Laboratory Supervisor"
+    date: str  # the day of issue, as printed: "2026-11-02"
 
 
 SheetResults = Mapping[tuple[str, str], ResultCell]
@@ -138,3 +149,16 @@ def render_html(sheets: Sequence, results: Sequence[SheetResults] | None = None,
         parts.append("</tbody></table></section>")
     parts.append("</div>")
     return "\n".join(parts)
+
+
+def render_signature(signature: Signature) -> str:
+    """The signature block: who authorised the report, as what, and when; then the end mark."""
+    return (
+        '<footer class="slim-report__signature">'
+        "<p>Authorised by</p>"
+        f'<p class="slim-report__signatory">{escape(signature.name)}</p>'
+        f"<p>{escape(signature.title)}</p>"
+        f"<p>Date of issue: {escape(signature.date)}</p>"
+        '<p class="slim-report__end">End of report</p>'
+        "</footer>"
+    )
